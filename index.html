@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sykkelservice, deler, utleie og salg av vanlige og elektriske sykler i Tønsberg, Vestfold. Profesjonelle tjenester, stort produktutvalg og utleie for enhver anledning!">
+    <title>Tønsberg Sykkelservice og Utleie AS - Din lokale sykkelekspert</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="{ mobileMenuOpen: false }">
+    <header class="header">
+        <nav class="nav-main">
+            <div class="container">
+                <div class="header-logo">
+                    <a href="index.html" class="logo-text-simple">
+                        <span class="logo-main">Tønsberg Sykkelservice AS</span>
+                        <span class="logo-sub">Salg, utleie, service</span>
+                    </a>
+                </div>
+                
+                <button class="mobile-menu-toggle" 
+                        @click="mobileMenuOpen = !mobileMenuOpen"
+                        :aria-expanded="mobileMenuOpen">
+                    <span class="sr-only">Meny</span>
+                    <span class="hamburger"></span>
+                </button>
+
+                <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
+                    <li><a href="index.html">Hjem</a></li>
+                    <li><a href="om-oss.html">Om oss</a></li>
+                    <li><a href="tjenester.html">Tjenester</a></li>
+                    <li><a href="sykler.html">Sykler</a></li>
+                    <li><a href="utleie.html">Utleie</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <video autoplay muted loop playsinline class="hero-video">
+                <source src="videos/4.mp4" type="video/mp4">
+            </video>
+            <div class="hero-content">
+                <h1>Komplette sykkeltjenester<span>i Tønsberg</span></h1>
+                <p>Service, salg og utleie av vanlige og elektriske sykler</p>
+                <a href="tjenester.html" class="cta-button">Se våre tjenester</a>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services">
+            <div class="container">
+                <h2>Våre tjenester</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-bicycle"></i>
+                        </div>
+                        <h3>Sykkel salg</h3>
+                        <p>Stort utvalg av vanlige og elektriske sykler fra ledende merker</p>
+                        <a href="sykler.html" class="service-link">Se vårt utvalg</a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h3>Sykkel utleie</h3>
+                        <p>Fleksibel utleie for alle behov - time, dag eller ukebasis</p>
+                        <a href="utleie.html" class="service-link">Book nå</a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Service og reparasjon</h3>
+                        <p>Profesjonell service av alle sykkeltyper</p>
+                        <a href="tjenester.html" class="service-link">Bestill service</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <div class="container">
+                <h2>Hva sier våre kunder</h2>
+                <div class="testimonials-slider" x-data="{ currentSlide: 0 }">
+                    <div class="testimonials-track">
+                        <div class="testimonial" x-show="currentSlide === 0">
+                            <p>"Utmerket service og profesjonell rådgivning. Anbefales sterkt!"</p>
+                            <cite>- Anders Johansen</cite>
+                        </div>
+                        <div class="testimonial" x-show="currentSlide === 1">
+                            <p>"Rask og pålitelig sykkelreparasjon. Veldig fornøyd!"</p>
+                            <cite>- Maria Larsen</cite>
+                        </div>
+                    </div>
+                    <div class="testimonials-nav">
+                        <button @click="currentSlide = 0" :class="{ active: currentSlide === 0 }">1</button>
+                        <button @click="currentSlide = 1" :class="{ active: currentSlide === 1 }">2</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="logo">
+                        <a href="index.html" class="logo-link">
+                            <span class="logo-icon">
+                                <i class="fas fa-bicycle"></i>
+                            </span>
+                            <div class="logo-text">
+                                <div class="logo-main">
+                                    <span class="logo-city">Tønsberg</span>
+                                    <span class="logo-divider">|</span>
+                                    <span class="logo-service">Sykkelservice</span>
+                                </div>
+                                <div class="logo-tagline">
+                                    <span class="tagline-text">Salg</span>
+                                    <span class="tagline-dot">•</span>
+                                    <span class="tagline-text">Utleie</span>
+                                    <span class="tagline-company">AS</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <p>Din lokale sykkelekspert i Tønsberg</p>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Kontakt oss</h4>
+                    <ul>
+                        <li><a href="tel:+4733333333">+47 333 33 333</a></li>
+                        <li><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></li>
+                        <li>Storgata 123, 3110 Tønsberg</li>
+                    </ul>
+                </div>
+
+                <div class="footer-hours">
+                    <h4>Åpningstider</h4>
+                    <ul>
+                        <li>Man-Fre: 09:00 - 17:00</li>
+                        <li>Lørdag: 10:00 - 15:00</li>
+                        <li>Søndag: Stengt</li>
+                    </ul>
+                </div>
+
+                <div class="footer-social">
+                    <h4>Følg oss</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Tønsberg Sykkelservice og Utleie AS. Alle rettigheter forbeholdt.</p>
+                <nav class="footer-nav">
+                    <a href="/personvern">Personvern</a>
+                    <a href="/cookies">Cookies</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js" type="module"></script>
+</body>
+</html>

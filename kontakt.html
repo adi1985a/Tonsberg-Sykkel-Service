@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kontakt Tønsberg Sykkelservice og Utleie AS - din lokale sykkelekspert. Vi er her for å hjelpe deg med alle dine sykkelbehov.">
+    <title>Kontakt oss - Tønsberg Sykkelservice og Utleie AS</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="{ mobileMenuOpen: false }">
+    <!-- Header (taki sam jak w innych podstronach) -->
+    <header class="header">
+        <nav class="nav-main">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon">
+                            <i class="fas fa-bicycle"></i>
+                        </span>
+                        <div class="logo-text">
+                            <div class="logo-main">
+                                <span class="logo-city">Tønsberg</span>
+                                <span class="logo-divider">|</span>
+                                <span class="logo-service">Sykkelservice</span>
+                            </div>
+                            <div class="logo-tagline">
+                                <span class="tagline-text">Salg</span>
+                                <span class="tagline-dot">•</span>
+                                <span class="tagline-text">Utleie</span>
+                                <span class="tagline-company">AS</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <button class="mobile-menu-toggle" 
+                        @click="mobileMenuOpen = !mobileMenuOpen"
+                        :aria-expanded="mobileMenuOpen">
+                    <span class="sr-only">Meny</span>
+                    <span class="hamburger"></span>
+                </button>
+
+                <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
+                    <li><a href="index.html">Hjem</a></li>
+                    <li><a href="om-oss.html">Om oss</a></li>
+                    <li><a href="tjenester.html">Tjenester</a></li>
+                    <li><a href="sykler.html">Sykler</a></li>
+                    <li><a href="utleie.html">Utleie</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <div class="container">
+                <h1>Kontakt oss</h1>
+                <p>Vi er her for å hjelpe deg</p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>Besøk oss</h3>
+                            <p>Storgata 123<br>3110 Tønsberg</p>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h3>Ring oss</h3>
+                            <p><a href="tel:+4733333333">+47 333 33 333</a></p>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Send e-post</h3>
+                            <p><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></p>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>Åpningstider</h3>
+                            <ul>
+                                <li>Man-Fre: 09:00 - 17:00</li>
+                                <li>Lørdag: 10:00 - 15:00</li>
+                                <li>Søndag: Stengt</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form">
+                        <h2>Send oss en melding</h2>
+                        <form action="mailto:pennywise1@wp.pl" method="POST" enctype="text/plain">
+                            <div class="form-group">
+                                <label for="name">Navn <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" required 
+                                       placeholder="Skriv inn ditt navn">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">E-post <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" required
+                                       placeholder="din.epost@eksempel.no">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Telefon</label>
+                                <input type="tel" id="phone" name="phone"
+                                       placeholder="+47 XXX XX XXX">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Emne <span class="required">*</span></label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Velg emne</option>
+                                    <option value="service">Service og reparasjon</option>
+                                    <option value="rental">Sykkelutleie</option>
+                                    <option value="purchase">Kjøp av sykkel</option>
+                                    <option value="other">Annet</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Melding <span class="required">*</span></label>
+                                <textarea id="message" name="message" rows="5" required
+                                          placeholder="Skriv din melding her..."></textarea>
+                            </div>
+
+                            <button type="submit" class="cta-button">
+                                <i class="fas fa-paper-plane"></i> Send melding
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="container">
+                <h2>Finn oss</h2>
+                <div class="map-container">
+                    <!-- Embed Google Maps here -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2047.2023434543147!2d10.4067234!3d59.2676468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTnCsDE2JzAzLjUiTiAxMMKwMjQnMjQuMiJF!5e0!3m2!1sno!2sno!4v1635944044751!5m2!1sno!2sno"
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (taki sam jak w innych podstronach) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="logo">
+                        <a href="index.html" class="logo-link">
+                            <span class="logo-icon">
+                                <i class="fas fa-bicycle"></i>
+                            </span>
+                            <div class="logo-text">
+                                <div class="logo-main">
+                                    <span class="logo-city">Tønsberg</span>
+                                    <span class="logo-divider">|</span>
+                                    <span class="logo-service">Sykkelservice</span>
+                                </div>
+                                <div class="logo-tagline">
+                                    <span class="tagline-text">Salg</span>
+                                    <span class="tagline-dot">•</span>
+                                    <span class="tagline-text">Utleie</span>
+                                    <span class="tagline-company">AS</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <p>Din lokale sykkelekspert i Tønsberg</p>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Kontakt oss</h4>
+                    <ul>
+                        <li><a href="tel:+4733333333">+47 333 33 333</a></li>
+                        <li><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></li>
+                        <li>Storgata 123, 3110 Tønsberg</li>
+                    </ul>
+                </div>
+
+                <div class="footer-hours">
+                    <h4>Åpningstider</h4>
+                    <ul>
+                        <li>Man-Fre: 09:00 - 17:00</li>
+                        <li>Lørdag: 10:00 - 15:00</li>
+                        <li>Søndag: Stengt</li>
+                    </ul>
+                </div>
+
+                <div class="footer-social">
+                    <h4>Følg oss</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Tønsberg Sykkelservice og Utleie AS. Alle rettigheter forbeholdt.</p>
+                <nav class="footer-nav">
+                    <a href="personvern.html">Personvern</a>
+                    <a href="cookies.html">Cookies</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js" type="module"></script>
+</body>
+</html>

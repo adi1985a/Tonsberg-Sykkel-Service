@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lei sykkel i Tønsberg - fleksible utleieløsninger for alle behov. Vi tilbyr vanlige sykler, el-sykler og terrengsykler.">
+    <title>Sykkelutleie - Tønsberg Sykkelservice og Utleie AS</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="{ mobileMenuOpen: false }">
+    <!-- Header (taki sam jak w innych podstronach) -->
+    <header class="header">
+        <nav class="nav-main">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon">
+                            <i class="fas fa-bicycle"></i>
+                        </span>
+                        <div class="logo-text">
+                            <div class="logo-main">
+                                <span class="logo-city">Tønsberg</span>
+                                <span class="logo-divider">|</span>
+                                <span class="logo-service">Sykkelservice</span>
+                            </div>
+                            <div class="logo-tagline">
+                                <span class="tagline-text">Salg</span>
+                                <span class="tagline-dot">•</span>
+                                <span class="tagline-text">Utleie</span>
+                                <span class="tagline-company">AS</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <button class="mobile-menu-toggle" 
+                        @click="mobileMenuOpen = !mobileMenuOpen"
+                        :aria-expanded="mobileMenuOpen">
+                    <span class="sr-only">Meny</span>
+                    <span class="hamburger"></span>
+                </button>
+
+                <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
+                    <li><a href="index.html">Hjem</a></li>
+                    <li><a href="om-oss.html">Om oss</a></li>
+                    <li><a href="tjenester.html">Tjenester</a></li>
+                    <li><a href="sykler.html">Sykler</a></li>
+                    <li><a href="utleie.html">Utleie</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <div class="container">
+                <h1>Sykkelutleie</h1>
+                <p>Fleksible utleieløsninger for alle behov</p>
+            </div>
+        </section>
+
+        <!-- Rental Options -->
+        <section class="rental-section">
+            <div class="container">
+                <div class="rental-grid">
+                    <div class="rental-category">
+                        <div class="rental-image">
+                            <img src="images/36.jpg" alt="Bysykkel utleie">
+                        </div>
+                        <h2>Bysykler</h2>
+                        <p>Perfekt for byturer og daglig bruk</p>
+                        <ul class="rental-features">
+                            <li>Komfortable seter</li>
+                            <li>Kurv eller bagasjebrett</li>
+                            <li>Lås inkludert</li>
+                        </ul>
+                        <div class="rental-prices">
+                            <div class="price-item">
+                                <span class="duration">2 timer</span>
+                                <span class="price">kr 199,-</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="duration">1 dag</span>
+                                <span class="price">kr 399,-</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="duration">1 uke</span>
+                                <span class="price">kr 1499,-</span>
+                            </div>
+                        </div>
+                        <a href="kontakt.html" class="cta-button">Bestill nå</a>
+                    </div>
+
+                    <div class="rental-category">
+                        <div class="rental-image">
+                            <img src="images/33.jpg" alt="El-sykkel utleie">
+                        </div>
+                        <h2>El-sykler</h2>
+                        <p>For lengre turer med mindre anstrengelse</p>
+                        <ul class="rental-features">
+                            <li>Kraftig motor</li>
+                            <li>Lang rekkevidde</li>
+                            <li>Lader inkludert</li>
+                        </ul>
+                        <div class="rental-prices">
+                            <div class="price-item">
+                                <span class="duration">2 timer</span>
+                                <span class="price">kr 299,-</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="duration">1 dag</span>
+                                <span class="price">kr 599,-</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="duration">1 uke</span>
+                                <span class="price">kr 2499,-</span>
+                            </div>
+                        </div>
+                        <a href="kontakt.html" class="cta-button">Bestill nå</a>
+                    </div>
+
+                    <div class="rental-category">
+                        <div class="rental-image">
+                            <img src="images/37.jpg" alt="Terrengsykkel utleie">
+                        </div>
+                        <h2>Terrengsykler</h2>
+                        <p>For eventyrlige turer i naturen</p>
+                        <ul class="rental-features">
+                            <li>Robust konstruksjon</li>
+                            <li>Gode dempere</li>
+                            <li>Terrengdekk</li>
+                        </ul>
+                        <div class="rental-prices">
+                            <div class="price-item">
+                                <span class="duration">2 timer</span>
+                                <span class="price">kr 249,-</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="duration">1 dag</span>
+                                <span class="price">kr 499,-</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="duration">1 uke</span>
+                                <span class="price">kr 1999,-</span>
+                            </div>
+                        </div>
+                        <a href="kontakt.html" class="cta-button">Bestill nå</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rental Info -->
+        <section class="rental-info">
+            <div class="container">
+                <h2>Utleieinformasjon</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <i class="fas fa-id-card"></i>
+                        <h3>Krav</h3>
+                        <ul>
+                            <li>Gyldig ID</li>
+                            <li>Kredittkort</li>
+                            <li>Depositum</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Åpningstider</h3>
+                        <ul>
+                            <li>Man-Fre: 09:00 - 17:00</li>
+                            <li>Lørdag: 10:00 - 15:00</li>
+                            <li>Søndag: Stengt</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Inkludert</h3>
+                        <ul>
+                            <li>Hjelm</li>
+                            <li>Lås</li>
+                            <li>Forsikring</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Klar for en sykkeltur?</h2>
+                <p>Kontakt oss for å reservere din sykkel i dag</p>
+                <a href="kontakt.html" class="cta-button">Bestill nå</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (taki sam jak w innych podstronach) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="logo">
+                        <a href="index.html" class="logo-link">
+                            <span class="logo-icon">
+                                <i class="fas fa-bicycle"></i>
+                            </span>
+                            <div class="logo-text">
+                                <div class="logo-main">
+                                    <span class="logo-city">Tønsberg</span>
+                                    <span class="logo-divider">|</span>
+                                    <span class="logo-service">Sykkelservice</span>
+                                </div>
+                                <div class="logo-tagline">
+                                    <span class="tagline-text">Salg</span>
+                                    <span class="tagline-dot">•</span>
+                                    <span class="tagline-text">Utleie</span>
+                                    <span class="tagline-company">AS</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <p>Din lokale sykkelekspert i Tønsberg</p>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Kontakt oss</h4>
+                    <ul>
+                        <li><a href="tel:+4733333333">+47 333 33 333</a></li>
+                        <li><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></li>
+                        <li>Storgata 123, 3110 Tønsberg</li>
+                    </ul>
+                </div>
+
+                <div class="footer-hours">
+                    <h4>Åpningstider</h4>
+                    <ul>
+                        <li>Man-Fre: 09:00 - 17:00</li>
+                        <li>Lørdag: 10:00 - 15:00</li>
+                        <li>Søndag: Stengt</li>
+                    </ul>
+                </div>
+
+                <div class="footer-social">
+                    <h4>Følg oss</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Tønsberg Sykkelservice og Utleie AS. Alle rettigheter forbeholdt.</p>
+                <nav class="footer-nav">
+                    <a href="personvern.html">Personvern</a>
+                    <a href="cookies.html">Cookies</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stort utvalg av sykler i Tønsberg - vanlige sykler, el-sykler, terrengsykler og bysykler fra kjente merker.">
+    <title>Sykler - Tønsberg Sykkelservice og Utleie AS</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="{ mobileMenuOpen: false }">
+    <!-- Header (taki sam jak w innych podstronach) -->
+    <header class="header">
+        <nav class="nav-main">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon">
+                            <i class="fas fa-bicycle"></i>
+                        </span>
+                        <div class="logo-text">
+                            <div class="logo-main">
+                                <span class="logo-city">Tønsberg</span>
+                                <span class="logo-divider">|</span>
+                                <span class="logo-service">Sykkelservice</span>
+                            </div>
+                            <div class="logo-tagline">
+                                <span class="tagline-text">Salg</span>
+                                <span class="tagline-dot">•</span>
+                                <span class="tagline-text">Utleie</span>
+                                <span class="tagline-company">AS</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <button class="mobile-menu-toggle" 
+                        @click="mobileMenuOpen = !mobileMenuOpen"
+                        :aria-expanded="mobileMenuOpen">
+                    <span class="sr-only">Meny</span>
+                    <span class="hamburger"></span>
+                </button>
+
+                <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
+                    <li><a href="index.html">Hjem</a></li>
+                    <li><a href="om-oss.html">Om oss</a></li>
+                    <li><a href="tjenester.html">Tjenester</a></li>
+                    <li><a href="sykler.html">Sykler</a></li>
+                    <li><a href="utleie.html">Utleie</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <div class="container">
+                <h1>Våre Sykler</h1>
+                <p>Kvalitetssykler for enhver syklist - fra nybegynner til proff</p>
+            </div>
+        </section>
+
+        <!-- Bike Categories -->
+        <section class="bikes-section">
+            <div class="container">
+                <div class="bikes-grid">
+                    <div class="bike-category">
+                        <div class="bike-image">
+                            <img src="images/33.webp" alt="El-sykler">
+                        </div>
+                        <h2>El-sykler</h2>
+                        <p>Moderne el-sykler med lang rekkevidde</p>
+                        <ul class="bike-features">
+                            <li>Kraftig motor</li>
+                            <li>Lang batterilevetid</li>
+                            <li>Komfortabel kjøring</li>
+                        </ul>
+                        <span class="price">Fra kr 24.999,-</span>
+                        <a href="kontakt.html" class="cta-button">Kontakt oss</a>
+                    </div>
+
+                    <div class="bike-category">
+                        <div class="bike-image">
+                            <img src="images/34.avif" alt="Bysykler">
+                        </div>
+                        <h2>Bysykler</h2>
+                        <p>Komfortable sykler for daglig bruk</p>
+                        <ul class="bike-features">
+                            <li>Lett ramme</li>
+                            <li>Praktisk bagasjebrett</li>
+                            <li>Behagelig sittestilling</li>
+                        </ul>
+                        <span class="price">Fra kr 8.999,-</span>
+                        <a href="kontakt.html" class="cta-button">Kontakt oss</a>
+                    </div>
+
+                    <div class="bike-category">
+                        <div class="bike-image">
+                            <img src="images/35.jpg" alt="Terrengsykler">
+                        </div>
+                        <h2>Terrengsykler</h2>
+                        <p>Robuste sykler for off-road sykling</p>
+                        <ul class="bike-features">
+                            <li>Solid dempesystem</li>
+                            <li>Kraftige bremser</li>
+                            <li>Allsidig giring</li>
+                        </ul>
+                        <span class="price">Fra kr 12.999,-</span>
+                        <a href="kontakt.html" class="cta-button">Kontakt oss</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brands Section -->
+        <section class="brands-section">
+            <div class="container">
+                <h2>Våre Merker</h2>
+                <div class="brands-grid">
+                    <!-- Dodaj logotypy marek rowerowych -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Finn din perfekte sykkel</h2>
+                <p>La oss hjelpe deg med å velge riktig sykkel for dine behov</p>
+                <a href="kontakt.html" class="cta-button">Kontakt oss</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (taki sam jak w innych podstronach) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="logo">
+                        <a href="index.html" class="logo-link">
+                            <span class="logo-icon">
+                                <i class="fas fa-bicycle"></i>
+                            </span>
+                            <div class="logo-text">
+                                <div class="logo-main">
+                                    <span class="logo-city">Tønsberg</span>
+                                    <span class="logo-divider">|</span>
+                                    <span class="logo-service">Sykkelservice</span>
+                                </div>
+                                <div class="logo-tagline">
+                                    <span class="tagline-text">Salg</span>
+                                    <span class="tagline-dot">•</span>
+                                    <span class="tagline-text">Utleie</span>
+                                    <span class="tagline-company">AS</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <p>Din lokale sykkelekspert i Tønsberg</p>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Kontakt oss</h4>
+                    <ul>
+                        <li><a href="tel:+4733333333">+47 333 33 333</a></li>
+                        <li><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></li>
+                        <li>Storgata 123, 3110 Tønsberg</li>
+                    </ul>
+                </div>
+
+                <div class="footer-hours">
+                    <h4>Åpningstider</h4>
+                    <ul>
+                        <li>Man-Fre: 09:00 - 17:00</li>
+                        <li>Lørdag: 10:00 - 15:00</li>
+                        <li>Søndag: Stengt</li>
+                    </ul>
+                </div>
+
+                <div class="footer-social">
+                    <h4>Følg oss</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Tønsberg Sykkelservice og Utleie AS. Alle rettigheter forbeholdt.</p>
+                <nav class="footer-nav">
+                    <a href="personvern.html">Personvern</a>
+                    <a href="cookies.html">Cookies</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js" type="module"></script>
+</body>
+</html>
