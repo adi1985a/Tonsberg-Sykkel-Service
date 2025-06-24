@@ -28,22 +28,22 @@ _A responsive HTML website for a bike service, rental, and sales business in Tø
 
 <br><br>
 <p align="center">
-  <img src="screenshots/1.gif" width="85%">
+  <img src="screenshots/1.gif" width="75%">
 </p>
 <p align="center">
-  <img src="screenshots/2.gif" width="85%">
+  <img src="screenshots/2.gif" width="75%">
 </p>
 <p align="center">
-  <img src="screenshots/3.gif" width="85%">
+  <img src="screenshots/3.gif" width="75%">
 </p>
 <p align="center">
-  <img src="screenshots/4.gif" width="85%">
+  <img src="screenshots/4.gif" width="75%">
 </p>
 <p align="center">
-  <img src="screenshots/5.gif" width="85%">
+  <img src="screenshots/5.gif" width="75%">
 </p>
 <p align="center">
-  <img src="screenshots/6.gif" width="85%">
+  <img src="screenshots/6.gif" width="75%">
 </p>
 
 
