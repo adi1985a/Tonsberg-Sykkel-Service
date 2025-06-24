@@ -26,6 +26,27 @@ _A responsive HTML website for a bike service, rental, and sales business in Tø
 
 **Tønsberg Sykkelservice AS** is a responsive HTML-based website designed to promote a bicycle service, rental, and sales business located in Tønsberg, Norway. The site aims to attract customers by showcasing its offerings through a dynamic video hero section, clear service cards, and a customer testimonial slider. Built with a focus on modern web practices, it utilizes **Alpine.js** for client-side interactivity (like the testimonial slider and mobile menu), **Font Awesome** for iconography, and the "Inter" **Google Font** for typography. All content is presented in Norwegian, tailored to the local market.
 
+<br><br>
+<p align="center">
+  <img src="screenshots/1.gif" width="85%">
+</p>
+<p align="center">
+  <img src="screenshots/2.gif" width="85%">
+</p>
+<p align="center">
+  <img src="screenshots/3.gif" width="85%">
+</p>
+<p align="center">
+  <img src="screenshots/4.gif" width="85%">
+</p>
+<p align="center">
+  <img src="screenshots/5.gif" width="85%">
+</p>
+<p align="center">
+  <img src="screenshots/6.gif" width="85%">
+</p>
+
+
 ## ✨ Key Features
 
 *   📱 **Responsive Design**: Built to adapt seamlessly to various screen sizes (desktops, tablets, mobile phones), likely using CSS flexbox, grid, and media queries within `css/style.css`.
@@ -57,9 +78,43 @@ _A responsive HTML website for a bike service, rental, and sales business in Tø
 
 ## 🖼️ Screenshots (Conceptual)
 
-**Coming soon!**
+_Screenshots of: the website's homepage featuring the video hero, the service cards, the Alpine.js powered testimonial slider in action, the responsive mobile menu, and the footer._
 
-_This section would ideally show screenshots of: the website's homepage featuring the video hero, the service cards, the Alpine.js powered testimonial slider in action, the responsive mobile menu, and the footer._
+<p align="center">
+  <img src="screenshots\1.jpg" width="300"/>
+  <img src="screenshots\2.jpg" width="300"/>
+  <img src="screenshots\3.jpg" width="300"/>
+  <img src="screenshots\4.jpg" width="300"/>
+  <img src="screenshots\5.jpg" width="300"/>
+  <img src="screenshots\6.jpg" width="300"/>
+  <img src="screenshots\7.jpg" width="300"/>
+  <img src="screenshots\8.jpg" width="300"/>
+  <img src="screenshots\9.jpg" width="300"/>
+  <img src="screenshots\10.jpg" width="300"/>
+  <img src="screenshots\11.jpg" width="300"/>
+  <img src="screenshots\12.jpg" width="300"/>
+  <img src="screenshots\14.jpg" width="300"/>
+  <img src="screenshots\15.jpg" width="300"/>
+  <img src="screenshots\16.jpg" width="300"/>
+  <img src="screenshots\17.jpg" width="300"/>
+  <img src="screenshots\18.jpg" width="300"/>
+  <img src="screenshots\19.jpg" width="300"/>
+  <img src="screenshots\20.jpg" width="300"/>
+  <img src="screenshots\21.jpg" width="300"/>
+  <img src="screenshots\22.jpg" width="300"/>
+  <img src="screenshots\23.jpg" width="300"/>
+  <img src="screenshots\24.jpg" width="300"/>
+  <img src="screenshots\25.jpg" width="300"/>
+  <img src="screenshots\26.jpg" width="300"/>
+  <img src="screenshots\27.jpg" width="300"/>
+  <img src="screenshots\28.jpg" width="300"/>
+  <img src="screenshots\29.jpg" width="300"/>
+  <img src="screenshots\30.jpg" width="300"/>
+  <img src="screenshots\31.jpg" width="300"/>
+  <img src="screenshots\32.jpg" width="300"/>
+  <img src="screenshots\33.jpg" width="300"/>
+</p>
+
 
 ## 🛠️ Technical Stack & Requirements
 
