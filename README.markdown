@@ -1,5 +1,5 @@
 # 🚲🛠️ Tønsberg Sykkelservice AS: Bike Services Website 🇳🇴
-_A responsive HTML website for a bike service, rental, and sales business in Tønsberg, Norway, featuring a video hero, service cards, a testimonial slider (Alpine.js), Font Awesome icons, and Norwegian content._
+_A responsive HTML website for a bike service, rental, and sales business in Tønsberg, Norway, featuring a video hero, service cards, a testimonial slider (Alpine.js), Font Awesome icons, AOS animations, and Norwegian content._
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
@@ -8,6 +8,7 @@ _A responsive HTML website for a bike service, rental, and sales business in Tø
 [![Alpine.js](https://img.shields.io/badge/Alpine.js-3.x-77C1D2.svg?logo=alpine.js)](https://alpinejs.dev/)
 [![Font Awesome](https://img.shields.io/badge/Font%20Awesome-6.x-528DD7.svg?logo=font-awesome&logoColor=white)](https://fontawesome.com/)
 [![Google Fonts](https://img.shields.io/badge/Google%20Fonts-Inter-4285F4.svg?logo=googlefonts)](https://fonts.google.com/specimen/Inter)
+[![AOS](https://img.shields.io/badge/AOS-2.3.1-FF6B6B.svg)](https://michalsnik.github.io/aos/)
 
 ## 📋 Table of Contents
 1.  [Overview](#-overview)
@@ -24,7 +25,7 @@ _A responsive HTML website for a bike service, rental, and sales business in Tø
 
 ## 📄 Overview
 
-**Tønsberg Sykkelservice AS** is a responsive HTML-based website designed to promote a bicycle service, rental, and sales business located in Tønsberg, Norway. The site aims to attract customers by showcasing its offerings through a dynamic video hero section, clear service cards, and a customer testimonial slider. Built with a focus on modern web practices, it utilizes **Alpine.js** for client-side interactivity (like the testimonial slider and mobile menu), **Font Awesome** for iconography, and the "Inter" **Google Font** for typography. All content is presented in Norwegian, tailored to the local market.
+**Tønsberg Sykkelservice AS** is a responsive HTML-based website designed to promote a bicycle service, rental, and sales business located in Tønsberg, Norway. The site aims to attract customers by showcasing its offerings through a dynamic video hero section, clear service cards, and a customer testimonial slider. Built with a focus on modern web practices, it utilizes **Alpine.js** for client-side interactivity (like the testimonial slider and mobile menu), **Font Awesome** for iconography, **AOS (Animate On Scroll)** for smooth animations, and the "Inter" **Google Font** for typography. All content is presented in Norwegian, tailored to the local market.
 
 <br><br>
 <p align="center">
@@ -49,23 +50,26 @@ _A responsive HTML website for a bike service, rental, and sales business in Tø
 
 ## ✨ Key Features
 
-*   📱 **Responsive Design**: Built to adapt seamlessly to various screen sizes (desktops, tablets, mobile phones), likely using CSS flexbox, grid, and media queries within `css/style.css`.
+*   📱 **Responsive Design**: Built to adapt seamlessly to various screen sizes (desktops, tablets, mobile phones), using CSS flexbox, grid, and media queries within `css/style.css`.
 *   🧭 **Mobile-Friendly Navigation**:
-    *   A clear navigation menu with links to "Hjem" (Home), "Tjenester" (Services), "Sykler" (Bikes), "Utleie" (Rentals), and "Kontakt" (Contact).
-    *   Includes a hamburger button for toggling the menu on smaller screens, likely powered by Alpine.js or custom JavaScript in `js/main.js`.
+    *   A clear navigation menu with links to "Hjem" (Home), "Om oss" (About), "Tjenester" (Services), "Sykler" (Bikes), "Utleie" (Rentals), and "Kontakt" (Contact).
+    *   Includes a hamburger button for toggling the menu on smaller screens, powered by Alpine.js.
 *   🎬 **Video Hero Section**:
-    *   Features an autoplaying background video (`videos/4.mp4`) showcasing cycling or scenes relevant to Tønsberg, creating an engaging first impression.
-    *   Includes overlay text and a call-to-action button like "Se våre tjenester" (See our services).
+    *   Features an autoplaying background video (`videos/4.mp4`) showcasing cycling scenes relevant to Tønsberg, creating an engaging first impression.
+    *   Includes overlay text, call-to-action buttons, and animated statistics showing customer satisfaction metrics.
 *   🛠️ **Service Cards**:
-    *   Clearly presents the core business offerings: Bike Sales ("Salg av sykler"), Rentals ("Sykkelutleie"), and Repairs ("Reparasjon og service").
-    *   Each card typically includes a brief description and a link (e.g., "Se vårt utvalg," "Book nå") to a more detailed page or section (currently placeholders).
+    *   Clearly presents the core business offerings: Bike Sales ("Sykkel salg"), Rentals ("Sykkel utleie"), and Repairs ("Service og reparasjon").
+    *   Each card includes detailed features and links to specific pages.
 *   💬 **Testimonial Slider**:
-    *   Displays customer reviews or testimonials in a slideshow format.
-    *   Navigation for the slider (e.g., previous/next buttons) is powered by **Alpine.js**, allowing users to cycle through different testimonials.
+    *   Displays customer reviews or testimonials in a slideshow format with auto-rotation.
+    *   Navigation for the slider is powered by **Alpine.js** and custom JavaScript, allowing users to cycle through different testimonials.
+*   🎭 **AOS Animations**: Smooth scroll-triggered animations throughout the site using the AOS (Animate On Scroll) library.
+*   ⏳ **Loading Screen**: Professional loading screen with animated bicycle icon for better user experience.
+*   ⬆️ **Scroll to Top Button**: Convenient button that appears when scrolling down, allowing users to quickly return to the top.
 *   🦶 **Comprehensive Footer**:
     *   Contains essential business information: contact details (address, phone, email), opening hours.
     *   Links to social media profiles (using Font Awesome icons).
-    *   Navigation links for legal pages (e.g., privacy policy, terms of service - placeholders).
+    *   Navigation links for legal pages (e.g., privacy policy, terms of service).
 *   ♿ **Accessibility Considerations**:
     *   Employs ARIA (Accessible Rich Internet Applications) labels and semantic HTML elements to improve accessibility for users with disabilities.
 *   🔍 **SEO Meta Tags**:
@@ -75,6 +79,7 @@ _A responsive HTML website for a bike service, rental, and sales business in Tø
     *   Utilizes Font Awesome for a wide range of scalable vector icons.
     *   Employs the "Inter" Google Font for clean and modern typography.
 *   🇳🇴 **Norwegian Content**: The entire website content and UI text are in Norwegian (`lang="no"`), specifically targeting the Tønsberg locale.
+*   📄 **Complete Page Structure**: Includes dedicated pages for all services: `om-oss.html`, `tjenester.html`, `sykler.html`, `utleie.html`, and `kontakt.html`.
 
 ## 🖼️ Screenshots (Conceptual)
 
@@ -122,15 +127,17 @@ _Screenshots of: the website's homepage featuring the video hero, the service ca
 *   **Structure**: HTML5
 *   **Styling**: CSS3 (`css/style.css`)
 *   **Interactivity**: JavaScript (ES6+ via `js/main.js`), Alpine.js (v3.x.x via CDN)
-*   **Icons**: Font Awesome (v6.x via CDN)
+*   **Animations**: AOS (Animate On Scroll) v2.3.1 via CDN
+*   **Icons**: Font Awesome (v6.4.0 via CDN)
 *   **Fonts**: Google Fonts (Inter)
 
 ### Requirements:
 *   **Web Browser**: Any modern web browser (e.g., Google Chrome, Mozilla Firefox, Safari, Microsoft Edge).
 *   **Internet Connection**: **Required** to load external resources:
-    *   Font Awesome CDN: `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css`
+    *   Font Awesome CDN: `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css`
     *   Google Fonts (Inter)
     *   Alpine.js CDN: `https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js`
+    *   AOS Animation Library: `https://unpkg.com/aos@2.3.1/dist/aos.css` and `https://unpkg.com/aos@2.3.1/dist/aos.js`
 *   **Local Assets**:
     *   `css/style.css` (main stylesheet)
     *   `js/main.js` (custom JavaScript for additional interactivity)
@@ -163,39 +170,53 @@ _Screenshots of: the website's homepage featuring the video hero, the service ca
 
 ## 💡 Website Usage & Navigation
 
-1.  Open `index.html` in your web browser (ensure an internet connection for CDN-hosted resources like Font Awesome, Google Fonts, and Alpine.js).
+1.  Open `index.html` in your web browser (ensure an internet connection for CDN-hosted resources like Font Awesome, Google Fonts, Alpine.js, and AOS).
 2.  **Interface**:
-    *   **Navigation Menu**: Click on links like "Hjem," "Tjenester," "Sykler," "Utleie," or "Kontakt" to navigate to (potentially placeholder or section-linked) parts of the site.
-    *   **Hero Section**: Observe the autoplaying background video. Click the "Se våre tjenester" button to (presumably) navigate to the services page/section.
-    *   **Service Cards**: Browse the cards for bike sales, rentals, and repairs. Click links like "Se vårt utvalg" or "Book nå" to (presumably) go to more detailed pages (currently placeholders).
-    *   **Testimonials**: Use the previous/next buttons on the slider to navigate through different customer reviews. This interactivity is powered by Alpine.js.
-    *   **Footer**: Access contact information, opening hours, social media links (placeholders), or legal page links (placeholders).
+    *   **Loading Screen**: Experience the professional loading animation with bicycle icon.
+    *   **Navigation Menu**: Click on links like "Hjem," "Om oss," "Tjenester," "Sykler," "Utleie," or "Kontakt" to navigate to dedicated pages.
+    *   **Hero Section**: Observe the autoplaying background video with animated statistics. Click the "Se våre tjenester" or "Kontakt oss" buttons to navigate to respective pages.
+    *   **Service Cards**: Browse the cards for bike sales, rentals, and repairs. Click links to go to detailed pages.
+    *   **Features Section**: View key business features with smooth AOS animations.
+    *   **Testimonials**: Use the navigation buttons on the slider to cycle through different customer reviews. Auto-rotation occurs every 5 seconds.
+    *   **CTA Section**: Call-to-action section encouraging user engagement.
+    *   **Footer**: Access contact information, opening hours, social media links, and legal page links.
 3.  **Actions**:
-    *   **Mobile Menu**: On smaller screens, a hamburger button should appear. Click it to toggle the display of the mobile navigation menu (functionality likely handled by Alpine.js or `js/main.js`).
-    *   Interact with the testimonial slider.
-    *   Click on various links and buttons. Most will be placeholders leading to "#" or non-existent pages until further implemented.
+    *   **Mobile Menu**: On smaller screens, a hamburger button appears. Click it to toggle the display of the mobile navigation menu.
+    *   **Scroll to Top**: Use the scroll-to-top button that appears when scrolling down.
+    *   Interact with the testimonial slider and various animated elements.
+    *   Navigate between different pages using the menu links.
 
 ## 🗂️ File Structure
 
-The project is expected to have the following basic file structure:
+The project has the following file structure:
 
-*   `index.html`: The main HTML file for the homepage, containing all sections like hero, services, testimonials, and footer.
+*   `index.html`: The main HTML file for the homepage, containing all sections like hero, services, features, testimonials, and footer.
+*   `om-oss.html`: About us page with company information and history.
+*   `tjenester.html`: Services page with detailed service offerings.
+*   `sykler.html`: Bikes page showcasing available bicycles for sale.
+*   `utleie.html`: Rental page with rental options and booking information.
+*   `kontakt.html`: Contact page with contact form and business information.
 *   `css/` (subfolder):
     *   `style.css`: The primary custom CSS file for styling the layout, responsiveness, and visual elements.
+    *   `scss/`: SCSS source files for advanced styling.
 *   `js/` (subfolder):
-    *   `main.js`: Custom JavaScript file for additional interactivity (e.g., advanced animations, event listeners beyond Alpine.js capabilities).
+    *   `main.js`: Custom JavaScript file for additional interactivity including loading screen, scroll-to-top, testimonials slider, form validation, and animations.
 *   `videos/` (subfolder):
     *   `4.mp4`: The background video file used in the hero section.
-*   `README.md`: This documentation file.
+*   `images/` (subfolder): Contains all website images and graphics.
+*   `screenshots/` (subfolder): Website screenshots and GIFs for documentation.
+*   `README.markdown`: This documentation file.
 
 ## 📝 Important Notes & Considerations
 
 *   **Norwegian Language**: The entire website content and UI text are in Norwegian (`lang="no"`), tailored for the Tønsberg market.
-*   **`js/main.js` Functionality**: The specific interactive features handled by `js/main.js` (beyond what Alpine.js might cover for the slider or mobile menu) are assumed but not detailed. This file needs to be implemented for any custom JavaScript logic.
-*   **Video Optimization**: The background video (`videos/4.mp4`) should be optimized for web delivery (e.g., compressed, appropriate format like WebM or MP4 with H.264 codec) to minimize load times and ensure smooth playback.
-*   **Placeholder Links**: Many links (e.g., detailed service pages, specific bike/rental pages, social media URLs, legal pages) are currently placeholders. These require corresponding pages to be created or valid URLs to be inserted for full functionality.
-*   **Alpine.js Dependency**: The testimonial slider and potentially the mobile menu toggle rely on Alpine.js. Ensure the CDN link is correct and accessible for these features to work.
-*   **CORS (Cross-Origin Resource Sharing)**: The note about CORS support is relevant if external resources (beyond standard CDNs like Google Fonts or Font Awesome, which are usually configured for wide access) are fetched via JavaScript, or if the site is hosted on one domain and tries to fetch resources from another. For typical static site hosting with CDN assets, this is usually not an issue.
+*   **Complete Page Structure**: The website includes dedicated pages for all major sections, not just placeholders.
+*   **Advanced JavaScript Features**: The `js/main.js` file includes comprehensive functionality for loading screen, scroll-to-top button, testimonial slider, form validation, parallax effects, and more.
+*   **AOS Animations**: Smooth scroll-triggered animations enhance user experience throughout the site.
+*   **Video Optimization**: The background video (`videos/4.mp4`) should be optimized for web delivery to minimize load times and ensure smooth playback.
+*   **Alpine.js Integration**: The testimonial slider and mobile menu toggle rely on Alpine.js. Ensure the CDN link is correct and accessible for these features to work.
+*   **Form Validation**: Contact forms include client-side validation for better user experience.
+*   **Performance Optimizations**: The site includes lazy loading for images and other performance enhancements.
 
 ## 🤝 Contributing
 
