@@ -9,10 +9,13 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -20,35 +23,83 @@
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body x-data="{ mobileMenuOpen: false }">
-    <header class="header">
-        <nav class="nav-main">
-            <div class="container">
-                <div class="header-logo">
-                    <a href="index.html" class="logo-text-simple">
-                        <span class="logo-main">Tønsberg Sykkelservice AS</span>
-                        <span class="logo-sub">Salg, utleie, service</span>
-                    </a>
-                </div>
-                
-                <button class="mobile-menu-toggle" 
-                        @click="mobileMenuOpen = !mobileMenuOpen"
-                        :aria-expanded="mobileMenuOpen">
-                    <span class="sr-only">Meny</span>
-                    <span class="hamburger"></span>
-                </button>
+<body x-data="{ mobileMenuOpen: false, currentSlide: 0 }">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner">
+            <i class="fas fa-bicycle fa-spin"></i>
+        </div>
+    </div>
 
-                <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
-                    <li><a href="index.html">Hjem</a></li>
-                    <li><a href="om-oss.html">Om oss</a></li>
-                    <li><a href="tjenester.html">Tjenester</a></li>
-                    <li><a href="sykler.html">Sykler</a></li>
-                    <li><a href="utleie.html">Utleie</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                </ul>
-            </div>
-        </nav>
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <header class="header" x-data="{ isScrolled: false }" 
+            x-init="window.addEventListener('scroll', () => isScrolled = window.pageYOffset > 50)"
+            :class="{ 'scrolled': isScrolled }">
+        <div class="header-logo">
+            <a href="index.html" class="logo-text-simple">
+                <div class="logo-icon">
+                    <img src="images/bicycle.png" alt="Logo" style="width:100%;height:100%;object-fit:contain;display:block;">
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">Tønsberg Sykkelservice AS</span>
+                    <span class="logo-sub">Salg, utleie, service</span>
+                </div>
+            </a>
+        </div>
+        <div class="nav-container">
+            <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Hjem</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="om-oss.html" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Om oss</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="tjenester.html" class="nav-link">
+                        <i class="fas fa-tools"></i>
+                        <span>Tjenester</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="sykler.html" class="nav-link">
+                        <i class="fas fa-bicycle"></i>
+                        <span>Sykler</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="utleie.html" class="nav-link">
+                        <i class="fas fa-key"></i>
+                        <span>Utleie</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="kontakt.html" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Kontakt</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <button class="mobile-menu-toggle" 
+                @click="mobileMenuOpen = !mobileMenuOpen"
+                :aria-expanded="mobileMenuOpen">
+            <span class="sr-only">Meny</span>
+            <span class="hamburger"></span>
+        </button>
     </header>
+
+    <div class="menu-bar-below"></div>
 
     <main>
         <!-- Hero Section -->
@@ -56,43 +107,128 @@
             <video autoplay muted loop playsinline class="hero-video">
                 <source src="videos/4.mp4" type="video/mp4">
             </video>
-            <div class="hero-content">
+            <div class="hero-overlay"></div>
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Din pålitelige sykkelekspert siden 1995</span>
+                </div>
                 <h1>Komplette sykkeltjenester<span>i Tønsberg</span></h1>
-                <p>Service, salg og utleie av vanlige og elektriske sykler</p>
-                <a href="tjenester.html" class="cta-button">Se våre tjenester</a>
+                <p>Service, salg og utleie av vanlige og elektriske sykler med profesjonell kvalitet</p>
+                <div class="hero-buttons">
+                    <a href="tjenester.html" class="cta-button primary">
+                        <i class="fas fa-tools"></i> Se våre tjenester
+                    </a>
+                    <a href="kontakt.html" class="cta-button secondary">
+                        <i class="fas fa-phone"></i> Kontakt oss
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span class="stat-number">5000+</span>
+                        <span class="stat-label">Fornøyde kunder</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-bicycle"></i>
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">Sykler servicet</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span class="stat-number">25+</span>
+                        <span class="stat-label">Års erfaring</span>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Services Section -->
         <section class="services">
             <div class="container">
-                <h2>Våre tjenester</h2>
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Våre tjenester</h2>
+                    <p>Alt du trenger for din sykkel på ett sted</p>
+                </div>
                 <div class="services-grid">
-                    <div class="service-card">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="service-icon">
                             <i class="fas fa-bicycle"></i>
                         </div>
                         <h3>Sykkel salg</h3>
                         <p>Stort utvalg av vanlige og elektriske sykler fra ledende merker</p>
-                        <a href="sykler.html" class="service-link">Se vårt utvalg</a>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> El-sykler</li>
+                            <li><i class="fas fa-check"></i> Terrengsykler</li>
+                            <li><i class="fas fa-check"></i> Bysykler</li>
+                        </ul>
+                        <a href="sykler.html" class="service-link">
+                            <span>Se vårt utvalg</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
 
-                    <div class="service-card">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="service-icon">
                             <i class="fas fa-key"></i>
                         </div>
                         <h3>Sykkel utleie</h3>
                         <p>Fleksibel utleie for alle behov - time, dag eller ukebasis</p>
-                        <a href="utleie.html" class="service-link">Book nå</a>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Daglig utleie</li>
+                            <li><i class="fas fa-check"></i> Helgeutleie</li>
+                            <li><i class="fas fa-check"></i> Langtidsutleie</li>
+                        </ul>
+                        <a href="utleie.html" class="service-link">
+                            <span>Book nå</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
 
-                    <div class="service-card">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                         <div class="service-icon">
                             <i class="fas fa-tools"></i>
                         </div>
                         <h3>Service og reparasjon</h3>
-                        <p>Profesjonell service av alle sykkeltyper</p>
-                        <a href="tjenester.html" class="service-link">Bestill service</a>
+                        <p>Profesjonell service av alle sykkeltyper med garanti</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Komplett service</li>
+                            <li><i class="fas fa-check"></i> Rask reparasjon</li>
+                            <li><i class="fas fa-check"></i> Garanti på arbeid</li>
+                        </ul>
+                        <a href="tjenester.html" class="service-link">
+                            <span>Bestill service</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-item" data-aos="fade-right">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Rask Service</h3>
+                        <p>De fleste reparasjoner gjøres samme dag</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Garanti</h3>
+                        <p>Alle våre tjenester kommer med garanti</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-left">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Lokalt</h3>
+                        <p>Din lokale sykkelekspert i Tønsberg</p>
                     </div>
                 </div>
             </div>
@@ -101,21 +237,92 @@
         <!-- Testimonials Section -->
         <section class="testimonials">
             <div class="container">
-                <h2>Hva sier våre kunder</h2>
-                <div class="testimonials-slider" x-data="{ currentSlide: 0 }">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Hva sier våre kunder</h2>
+                    <p>Lyt til erfaringer fra våre fornøyde kunder</p>
+                </div>
+                <div class="testimonials-slider" id="testimonials-slider">
                     <div class="testimonials-track">
-                        <div class="testimonial" x-show="currentSlide === 0">
-                            <p>"Utmerket service og profesjonell rådgivning. Anbefales sterkt!"</p>
-                            <cite>- Anders Johansen</cite>
+                        <div class="testimonial active" data-slide="0">
+                            <div class="testimonial-content">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p>"Utmerket service og profesjonell rådgivning. Sykkelen min fungerer som ny etter service!"</p>
+                                <div class="testimonial-author">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" alt="Anders Johansen">
+                                    <div>
+                                        <cite>Anders Johansen</cite>
+                                        <span>Regelmessig kunde</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="testimonial" x-show="currentSlide === 1">
-                            <p>"Rask og pålitelig sykkelreparasjon. Veldig fornøyd!"</p>
-                            <cite>- Maria Larsen</cite>
+                        <div class="testimonial" data-slide="1">
+                            <div class="testimonial-content">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p>"Rask og pålitelig sykkelreparasjon. Veldig fornøyd med kvaliteten og prisen!"</p>
+                                <div class="testimonial-author">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face" alt="Maria Larsen" onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&crop=face'">
+                                    <div>
+                                        <cite>Maria Larsen</cite>
+                                        <span>El-sykkel eier</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial" data-slide="2">
+                            <div class="testimonial-content">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p>"Fantastisk utleie av el-sykkel for helgeturen. Alt fungerte perfekt!"</p>
+                                <div class="testimonial-author">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" alt="Erik Berg">
+                                    <div>
+                                        <cite>Erik Berg</cite>
+                                        <span>Utleie kunde</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="testimonials-nav">
-                        <button @click="currentSlide = 0" :class="{ active: currentSlide === 0 }">1</button>
-                        <button @click="currentSlide = 1" :class="{ active: currentSlide === 1 }">2</button>
+                        <button class="nav-btn active" data-slide="0" aria-label="Testimonial 1">1</button>
+                        <button class="nav-btn" data-slide="1" aria-label="Testimonial 2">2</button>
+                        <button class="nav-btn" data-slide="2" aria-label="Testimonial 3">3</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content" data-aos="zoom-in">
+                    <h2>Klar for din neste sykkeltur?</h2>
+                    <p>Kontakt oss i dag for profesjonell hjelp med alle dine sykkelbehov</p>
+                    <div class="cta-buttons">
+                        <a href="kontakt.html" class="cta-button primary">
+                            <i class="fas fa-phone"></i> Ring oss nå
+                        </a>
+                        <a href="tjenester.html" class="cta-button secondary">
+                            <i class="fas fa-tools"></i> Se alle tjenester
+                        </a>
                     </div>
                 </div>
             </div>
@@ -126,66 +333,57 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-info">
-                    <div class="logo">
-                        <a href="index.html" class="logo-link">
-                            <span class="logo-icon">
-                                <i class="fas fa-bicycle"></i>
-                            </span>
-                            <div class="logo-text">
-                                <div class="logo-main">
-                                    <span class="logo-city">Tønsberg</span>
-                                    <span class="logo-divider">|</span>
-                                    <span class="logo-service">Sykkelservice</span>
-                                </div>
-                                <div class="logo-tagline">
-                                    <span class="tagline-text">Salg</span>
-                                    <span class="tagline-dot">•</span>
-                                    <span class="tagline-text">Utleie</span>
-                                    <span class="tagline-company">AS</span>
-                                </div>
-                            </div>
-                        </a>
+                    <h4><i class="fas fa-bicycle"></i> Tønsberg Sykkelservice AS</h4>
+                    <p>Din pålitelige partner for sykkelservice, salg og utleie i Tønsberg siden 1995.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     </div>
-                    <p>Din lokale sykkelekspert i Tønsberg</p>
                 </div>
-
+                
                 <div class="footer-contact">
-                    <h4>Kontakt oss</h4>
+                    <h4><i class="fas fa-map-marker-alt"></i> Kontakt</h4>
                     <ul>
-                        <li><a href="tel:+4733333333">+47 333 33 333</a></li>
-                        <li><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></li>
-                        <li>Storgata 123, 3110 Tønsberg</li>
+                        <li><a href="tel:+4712345678"><i class="fas fa-phone"></i> +47 12 34 56 78</a></li>
+                        <li><a href="mailto:info@tonsbergsykkel.no"><i class="fas fa-envelope"></i> info@tonsbergsykkel.no</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Sykkelgata 1, 3111 Tønsberg</li>
                     </ul>
                 </div>
-
+                
+                <div class="footer-services">
+                    <h4><i class="fas fa-tools"></i> Tjenester</h4>
+                    <ul>
+                        <li><a href="tjenester.html">Service og reparasjon</a></li>
+                        <li><a href="sykler.html">Sykkelsalg</a></li>
+                        <li><a href="utleie.html">Sykkelutleie</a></li>
+                        <li><a href="om-oss.html">Om oss</a></li>
+                    </ul>
+                </div>
+                
                 <div class="footer-hours">
-                    <h4>Åpningstider</h4>
+                    <h4><i class="fas fa-clock"></i> Åpningstider</h4>
                     <ul>
-                        <li>Man-Fre: 09:00 - 17:00</li>
-                        <li>Lørdag: 10:00 - 15:00</li>
-                        <li>Søndag: Stengt</li>
+                        <li><span>Mandag-Fredag:</span> 09:00 - 17:00</li>
+                        <li><span>Lørdag:</span> 10:00 - 15:00</li>
+                        <li><span>Søndag:</span> Stengt</li>
                     </ul>
-                </div>
-
-                <div class="footer-social">
-                    <h4>Følg oss</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    </div>
                 </div>
             </div>
-
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 Tønsberg Sykkelservice og Utleie AS. Alle rettigheter forbeholdt.</p>
-                <nav class="footer-nav">
-                    <a href="/personvern">Personvern</a>
-                    <a href="/cookies">Cookies</a>
-                </nav>
+                <p>&copy; 2024 Tønsberg Sykkelservice AS. Alle rettigheter forbeholdt.</p>
+                <div class="footer-nav">
+                    <a href="#">Personvern</a>
+                    <a href="#">Vilkår</a>
+                    <a href="#">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js" type="module"></script>
 </body>
 </html>

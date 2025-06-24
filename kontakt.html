@@ -9,10 +9,13 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -20,57 +23,97 @@
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body x-data="{ mobileMenuOpen: false }">
-    <!-- Header (taki sam jak w innych podstronach) -->
-    <header class="header">
-        <nav class="nav-main">
-            <div class="container">
-                <div class="logo">
-                    <a href="index.html" class="logo-link">
-                        <span class="logo-icon">
-                            <i class="fas fa-bicycle"></i>
-                        </span>
-                        <div class="logo-text">
-                            <div class="logo-main">
-                                <span class="logo-city">Tønsberg</span>
-                                <span class="logo-divider">|</span>
-                                <span class="logo-service">Sykkelservice</span>
-                            </div>
-                            <div class="logo-tagline">
-                                <span class="tagline-text">Salg</span>
-                                <span class="tagline-dot">•</span>
-                                <span class="tagline-text">Utleie</span>
-                                <span class="tagline-company">AS</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <button class="mobile-menu-toggle" 
-                        @click="mobileMenuOpen = !mobileMenuOpen"
-                        :aria-expanded="mobileMenuOpen">
-                    <span class="sr-only">Meny</span>
-                    <span class="hamburger"></span>
-                </button>
+<body x-data="{ mobileMenuOpen: false, formSubmitted: false }">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner">
+            <i class="fas fa-bicycle fa-spin"></i>
+        </div>
+    </div>
 
-                <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
-                    <li><a href="index.html">Hjem</a></li>
-                    <li><a href="om-oss.html">Om oss</a></li>
-                    <li><a href="tjenester.html">Tjenester</a></li>
-                    <li><a href="sykler.html">Sykler</a></li>
-                    <li><a href="utleie.html">Utleie</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                </ul>
-            </div>
-        </nav>
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <header class="header" x-data="{ isScrolled: false }" 
+            x-init="window.addEventListener('scroll', () => isScrolled = window.pageYOffset > 50)"
+            :class="{ 'scrolled': isScrolled }">
+        <div class="header-logo">
+            <a href="index.html" class="logo-text-simple">
+                <div class="logo-icon">
+                    <img src="images/bicycle.png" alt="Logo" style="width:32px;height:32px;object-fit:contain;display:block;">
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">Tønsberg Sykkelservice AS</span>
+                    <span class="logo-sub">Salg, utleie, service</span>
+                </div>
+            </a>
+        </div>
+        <div class="nav-container">
+            <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Hjem</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="om-oss.html" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Om oss</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="tjenester.html" class="nav-link">
+                        <i class="fas fa-tools"></i>
+                        <span>Tjenester</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="sykler.html" class="nav-link">
+                        <i class="fas fa-bicycle"></i>
+                        <span>Sykler</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="utleie.html" class="nav-link">
+                        <i class="fas fa-key"></i>
+                        <span>Utleie</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="kontakt.html" class="nav-link active">
+                        <i class="fas fa-envelope"></i>
+                        <span>Kontakt</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <button class="mobile-menu-toggle" 
+                @click="mobileMenuOpen = !mobileMenuOpen"
+                :aria-expanded="mobileMenuOpen">
+            <span class="sr-only">Meny</span>
+            <span class="hamburger"></span>
+        </button>
     </header>
+    <div class="menu-bar-below"></div>
 
     <main>
         <!-- Page Hero -->
-        <section class="page-hero">
-            <div class="container">
-                <h1>Kontakt oss</h1>
-                <p>Vi er her for å hjelpe deg</p>
+        <section class="hero page-hero">
+            <div class="hero-background">
+                <img src="images/close-up-sideways-cyclist-holding-e-bike-with-green-wall-background_23-2148225875.jpg" alt="Kontakt oss" class="hero-image">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="hero-badge">
+                    <i class="fas fa-envelope"></i>
+                    <span>Kontakt oss</span>
+                </div>
+                <h1>Kontakt Oss</h1>
+                <p>Vi er her for å hjelpe deg med alle dine sykkelbehov</p>
             </div>
         </section>
 
@@ -80,175 +123,320 @@
                 <div class="contact-grid">
                     <!-- Contact Info -->
                     <div class="contact-info">
-                        <div class="info-card">
-                            <div class="info-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <h3>Besøk oss</h3>
-                            <p>Storgata 123<br>3110 Tønsberg</p>
+                        <div class="section-header" data-aos="fade-right">
+                            <h2>Kontaktinformasjon</h2>
+                            <p>Ta kontakt med oss på den måten som passer deg best</p>
                         </div>
-
-                        <div class="info-card">
-                            <div class="info-icon">
-                                <i class="fas fa-phone"></i>
+                        
+                        <div class="info-cards">
+                            <div class="info-card" data-aos="fade-up" data-aos-delay="100">
+                                <div class="info-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <h3>Besøk oss</h3>
+                                <p>Storgata 123<br>3110 Tønsberg</p>
+                                <a href="#map" class="info-link">
+                                    <i class="fas fa-directions"></i> Få veibeskrivelse
+                                </a>
                             </div>
-                            <h3>Ring oss</h3>
-                            <p><a href="tel:+4733333333">+47 333 33 333</a></p>
-                        </div>
 
-                        <div class="info-card">
-                            <div class="info-icon">
-                                <i class="fas fa-envelope"></i>
+                            <div class="info-card" data-aos="fade-up" data-aos-delay="200">
+                                <div class="info-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <h3>Ring oss</h3>
+                                <p><a href="tel:+4733333333">+47 333 33 333</a></p>
+                                <span class="info-note">Man-Fre: 09:00 - 17:00</span>
                             </div>
-                            <h3>Send e-post</h3>
-                            <p><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></p>
-                        </div>
 
-                        <div class="info-card">
-                            <div class="info-icon">
-                                <i class="fas fa-clock"></i>
+                            <div class="info-card" data-aos="fade-up" data-aos-delay="300">
+                                <div class="info-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <h3>Send e-post</h3>
+                                <p><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></p>
+                                <span class="info-note">Svarer innen 24 timer</span>
                             </div>
-                            <h3>Åpningstider</h3>
-                            <ul>
-                                <li>Man-Fre: 09:00 - 17:00</li>
-                                <li>Lørdag: 10:00 - 15:00</li>
-                                <li>Søndag: Stengt</li>
-                            </ul>
+
+                            <div class="info-card" data-aos="fade-up" data-aos-delay="400">
+                                <div class="info-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <h3>Åpningstider</h3>
+                                <ul class="hours-list">
+                                    <li><span>Man-Fre:</span> 09:00 - 17:00</li>
+                                    <li><span>Lørdag:</span> 10:00 - 15:00</li>
+                                    <li><span>Søndag:</span> Stengt</li>
+                                </ul>
+                                <span class="info-note">Akutt hjelp? Ring oss!</span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Contact Form -->
-                    <div class="contact-form">
-                        <h2>Send oss en melding</h2>
-                        <form action="mailto:pennywise1@wp.pl" method="POST" enctype="text/plain">
-                            <div class="form-group">
-                                <label for="name">Navn <span class="required">*</span></label>
-                                <input type="text" id="name" name="name" required 
-                                       placeholder="Skriv inn ditt navn">
+                    <div class="contact-form" data-aos="fade-left">
+                        <div class="form-header">
+                            <h2>Send oss en melding</h2>
+                            <p>Fyll ut skjemaet nedenfor og vi tar kontakt med deg snart</p>
+                        </div>
+                        
+                        <form @submit.prevent="submitForm" x-data="{ 
+                            name: '', 
+                            email: '', 
+                            phone: '', 
+                            subject: '', 
+                            message: '',
+                            loading: false 
+                        }">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">
+                                        <i class="fas fa-user"></i> Navn <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="name" x-model="name" required 
+                                           placeholder="Skriv inn ditt navn"
+                                           :class="{ 'error': !name && formSubmitted }">
+                                    <div class="form-error" x-show="!name && formSubmitted">
+                                        <i class="fas fa-exclamation-circle"></i> Navn er påkrevd
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">
+                                        <i class="fas fa-envelope"></i> E-post <span class="required">*</span>
+                                    </label>
+                                    <input type="email" id="email" x-model="email" required
+                                           placeholder="din.epost@eksempel.no"
+                                           :class="{ 'error': !email && formSubmitted }">
+                                    <div class="form-error" x-show="!email && formSubmitted">
+                                        <i class="fas fa-exclamation-circle"></i> Gyldig e-post er påkrevd
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone">
+                                        <i class="fas fa-phone"></i> Telefon
+                                    </label>
+                                    <input type="tel" id="phone" x-model="phone"
+                                           placeholder="+47 XXX XX XXX">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="subject">
+                                        <i class="fas fa-tag"></i> Emne <span class="required">*</span>
+                                    </label>
+                                    <select id="subject" x-model="subject" required
+                                            :class="{ 'error': !subject && formSubmitted }">
+                                        <option value="">Velg emne</option>
+                                        <option value="service">Service og reparasjon</option>
+                                        <option value="rental">Sykkelutleie</option>
+                                        <option value="purchase">Kjøp av sykkel</option>
+                                        <option value="parts">Deler og tilbehør</option>
+                                        <option value="other">Annet</option>
+                                    </select>
+                                    <div class="form-error" x-show="!subject && formSubmitted">
+                                        <i class="fas fa-exclamation-circle"></i> Velg et emne
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="email">E-post <span class="required">*</span></label>
-                                <input type="email" id="email" name="email" required
-                                       placeholder="din.epost@eksempel.no">
+                                <label for="message">
+                                    <i class="fas fa-comment"></i> Melding <span class="required">*</span>
+                                </label>
+                                <textarea id="message" x-model="message" rows="5" required
+                                          placeholder="Skriv din melding her..."
+                                          :class="{ 'error': !message && formSubmitted }"></textarea>
+                                <div class="form-error" x-show="!message && formSubmitted">
+                                    <i class="fas fa-exclamation-circle"></i> Melding er påkrevd
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="phone">Telefon</label>
-                                <input type="tel" id="phone" name="phone"
-                                       placeholder="+47 XXX XX XXX">
+                            <div class="form-actions">
+                                <button type="submit" class="cta-button primary" :disabled="loading">
+                                    <i class="fas fa-paper-plane" x-show="!loading"></i>
+                                    <i class="fas fa-spinner fa-spin" x-show="loading"></i>
+                                    <span x-text="loading ? 'Sender...' : 'Send melding'"></span>
+                                </button>
+                                
+                                <div class="form-note">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Din informasjon er sikker hos oss</span>
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="subject">Emne <span class="required">*</span></label>
-                                <select id="subject" name="subject" required>
-                                    <option value="">Velg emne</option>
-                                    <option value="service">Service og reparasjon</option>
-                                    <option value="rental">Sykkelutleie</option>
-                                    <option value="purchase">Kjøp av sykkel</option>
-                                    <option value="other">Annet</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="message">Melding <span class="required">*</span></label>
-                                <textarea id="message" name="message" rows="5" required
-                                          placeholder="Skriv din melding her..."></textarea>
-                            </div>
-
-                            <button type="submit" class="cta-button">
-                                <i class="fas fa-paper-plane"></i> Send melding
-                            </button>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Map Section -->
-        <section class="map-section">
+        <!-- Quick Contact -->
+        <section class="quick-contact">
             <div class="container">
-                <h2>Finn oss</h2>
-                <div class="map-container">
-                    <!-- Embed Google Maps here -->
+                <div class="quick-contact-grid">
+                    <div class="quick-contact-item" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="quick-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Rask Service</h3>
+                        <p>De fleste reparasjoner gjøres samme dag</p>
+                        <a href="tel:+4733333333" class="quick-link">
+                            <i class="fas fa-phone"></i> Ring nå
+                        </a>
+                    </div>
+
+                    <div class="quick-contact-item" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="quick-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>Book Time</h3>
+                        <p>Reserver tid for service eller utleie</p>
+                        <a href="#" class="quick-link" onclick="showNotification('Booking-funksjon kommer snart!', 'info')">
+                            <i class="fas fa-calendar"></i> Book online
+                        </a>
+                    </div>
+
+                    <div class="quick-contact-item" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="quick-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Chat Support</h3>
+                        <p>Få svar på dine spørsmål raskt</p>
+                        <a href="#" class="quick-link" onclick="showNotification('Chat-funksjon kommer snart!', 'info')">
+                            <i class="fas fa-comment"></i> Start chat
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section" id="map">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Finn oss</h2>
+                    <p>Vi ligger sentralt i Tønsberg sentrum</p>
+                </div>
+                <div class="map-container" data-aos="zoom-in">
                     <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2047.2023434543147!2d10.4067234!3d59.2676468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTnCsDE2JzAzLjUiTiAxMMKwMjQnMjQuMiJF!5e0!3m2!1sno!2sno!4v1635944044751!5m2!1sno!2sno"
                         width="100%" 
                         height="450" 
-                        style="border:0;" 
+                        style="border:0; border-radius: var(--border-radius);" 
                         allowfullscreen="" 
                         loading="lazy">
                     </iframe>
+                </div>
+                <div class="map-info">
+                    <div class="map-details">
+                        <h3>Adresse</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Storgata 123, 3110 Tønsberg</p>
+                        <p><i class="fas fa-car"></i> Gratis parkering foran butikken</p>
+                        <p><i class="fas fa-bus"></i> Bussholdeplass 100m unna</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Vanlige spørsmål</h2>
+                    <p>Svar på de mest vanlige spørsmålene</p>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="faq-question">
+                            <h3>Hvor lang tid tar en vanlig service?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>De fleste reparasjoner gjøres samme dag. En komplett service tar vanligvis 2-3 timer.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="faq-question">
+                            <h3>Kan jeg leie sykkel uten forhåndsbestilling?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Ja, men vi anbefaler forhåndsbestilling i høysesong. Ring oss for tilgjengelighet.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="faq-question">
+                            <h3>Har dere garanti på arbeidet?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Ja, alle våre tjenester kommer med 6 måneders garanti på arbeid og deler.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer (taki sam jak w innych podstronach) -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-info">
-                    <div class="logo">
-                        <a href="index.html" class="logo-link">
-                            <span class="logo-icon">
-                                <i class="fas fa-bicycle"></i>
-                            </span>
-                            <div class="logo-text">
-                                <div class="logo-main">
-                                    <span class="logo-city">Tønsberg</span>
-                                    <span class="logo-divider">|</span>
-                                    <span class="logo-service">Sykkelservice</span>
-                                </div>
-                                <div class="logo-tagline">
-                                    <span class="tagline-text">Salg</span>
-                                    <span class="tagline-dot">•</span>
-                                    <span class="tagline-text">Utleie</span>
-                                    <span class="tagline-company">AS</span>
-                                </div>
-                            </div>
-                        </a>
+                    <h4><i class="fas fa-bicycle"></i> Tønsberg Sykkelservice AS</h4>
+                    <p>Din pålitelige partner for sykkelservice, salg og utleie i Tønsberg siden 1995.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     </div>
-                    <p>Din lokale sykkelekspert i Tønsberg</p>
                 </div>
-
+                
                 <div class="footer-contact">
-                    <h4>Kontakt oss</h4>
+                    <h4><i class="fas fa-map-marker-alt"></i> Kontakt</h4>
                     <ul>
-                        <li><a href="tel:+4733333333">+47 333 33 333</a></li>
-                        <li><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></li>
-                        <li>Storgata 123, 3110 Tønsberg</li>
+                        <li><a href="tel:+4712345678"><i class="fas fa-phone"></i> +47 12 34 56 78</a></li>
+                        <li><a href="mailto:info@tonsbergsykkel.no"><i class="fas fa-envelope"></i> info@tonsbergsykkel.no</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Sykkelgata 1, 3111 Tønsberg</li>
                     </ul>
                 </div>
-
+                
+                <div class="footer-services">
+                    <h4><i class="fas fa-tools"></i> Tjenester</h4>
+                    <ul>
+                        <li><a href="tjenester.html">Service og reparasjon</a></li>
+                        <li><a href="sykler.html">Sykkelsalg</a></li>
+                        <li><a href="utleie.html">Sykkelutleie</a></li>
+                        <li><a href="om-oss.html">Om oss</a></li>
+                    </ul>
+                </div>
+                
                 <div class="footer-hours">
-                    <h4>Åpningstider</h4>
+                    <h4><i class="fas fa-clock"></i> Åpningstider</h4>
                     <ul>
-                        <li>Man-Fre: 09:00 - 17:00</li>
-                        <li>Lørdag: 10:00 - 15:00</li>
-                        <li>Søndag: Stengt</li>
+                        <li><span>Mandag-Fredag:</span> 09:00 - 17:00</li>
+                        <li><span>Lørdag:</span> 10:00 - 15:00</li>
+                        <li><span>Søndag:</span> Stengt</li>
                     </ul>
-                </div>
-
-                <div class="footer-social">
-                    <h4>Følg oss</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    </div>
                 </div>
             </div>
-
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 Tønsberg Sykkelservice og Utleie AS. Alle rettigheter forbeholdt.</p>
-                <nav class="footer-nav">
-                    <a href="personvern.html">Personvern</a>
-                    <a href="cookies.html">Cookies</a>
-                </nav>
+                <p>&copy; 2024 Tønsberg Sykkelservice AS. Alle rettigheter forbeholdt.</p>
+                <div class="footer-nav">
+                    <a href="#">Personvern</a>
+                    <a href="#">Vilkår</a>
+                    <a href="#">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js" type="module"></script>
 </body>
 </html>

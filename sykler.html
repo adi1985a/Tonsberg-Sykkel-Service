@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Stort utvalg av sykler i Tønsberg - vanlige sykler, el-sykler, terrengsykler og bysykler fra kjente merker.">
+    <meta name="description" content="Stort utvalg av sykler i Tønsberg - el-sykler, terrengsykler, bysykler og barnesykler. Kvalitetssykler fra ledende merker med garanti.">
     <title>Sykler - Tønsberg Sykkelservice og Utleie AS</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -20,107 +23,477 @@
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body x-data="{ mobileMenuOpen: false }">
-    <!-- Header (taki sam jak w innych podstronach) -->
-    <header class="header">
-        <nav class="nav-main">
-            <div class="container">
-                <div class="logo">
-                    <a href="index.html" class="logo-link">
-                        <span class="logo-icon">
-                            <i class="fas fa-bicycle"></i>
-                        </span>
-                        <div class="logo-text">
-                            <div class="logo-main">
-                                <span class="logo-city">Tønsberg</span>
-                                <span class="logo-divider">|</span>
-                                <span class="logo-service">Sykkelservice</span>
-                            </div>
-                            <div class="logo-tagline">
-                                <span class="tagline-text">Salg</span>
-                                <span class="tagline-dot">•</span>
-                                <span class="tagline-text">Utleie</span>
-                                <span class="tagline-company">AS</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <button class="mobile-menu-toggle" 
-                        @click="mobileMenuOpen = !mobileMenuOpen"
-                        :aria-expanded="mobileMenuOpen">
-                    <span class="sr-only">Meny</span>
-                    <span class="hamburger"></span>
-                </button>
+<body x-data="{ mobileMenuOpen: false, selectedCategory: 'all' }">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner">
+            <i class="fas fa-bicycle fa-spin"></i>
+        </div>
+    </div>
 
-                <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
-                    <li><a href="index.html">Hjem</a></li>
-                    <li><a href="om-oss.html">Om oss</a></li>
-                    <li><a href="tjenester.html">Tjenester</a></li>
-                    <li><a href="sykler.html">Sykler</a></li>
-                    <li><a href="utleie.html">Utleie</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                </ul>
-            </div>
-        </nav>
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <header class="header" x-data="{ isScrolled: false }" 
+            x-init="window.addEventListener('scroll', () => isScrolled = window.pageYOffset > 50)"
+            :class="{ 'scrolled': isScrolled }">
+        <div class="header-logo">
+            <a href="index.html" class="logo-text-simple">
+                <div class="logo-icon">
+                    <img src="images/bicycle.png" alt="Logo" style="width:100%;height:100%;object-fit:contain;display:block;">
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">Tønsberg Sykkelservice AS</span>
+                    <span class="logo-sub">Salg, utleie, service</span>
+                </div>
+            </a>
+        </div>
+        <div class="nav-container">
+            <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Hjem</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="om-oss.html" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Om oss</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="tjenester.html" class="nav-link">
+                        <i class="fas fa-tools"></i>
+                        <span>Tjenester</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="sykler.html" class="nav-link active">
+                        <i class="fas fa-bicycle"></i>
+                        <span>Sykler</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="utleie.html" class="nav-link">
+                        <i class="fas fa-key"></i>
+                        <span>Utleie</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="kontakt.html" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Kontakt</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <button class="mobile-menu-toggle" 
+                @click="mobileMenuOpen = !mobileMenuOpen"
+                :aria-expanded="mobileMenuOpen">
+            <span class="sr-only">Meny</span>
+            <span class="hamburger"></span>
+        </button>
     </header>
+    <div class="menu-bar-below"></div>
 
     <main>
         <!-- Page Hero -->
-        <section class="page-hero">
-            <div class="container">
+        <section class="hero page-hero">
+            <div class="hero-background">
+                <img src="images/young-adult-using-electric-bike-country-side_23-2149124562.jpg" alt="Våre Sykler" class="hero-image">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="hero-badge">
+                    <i class="fas fa-bicycle"></i>
+                    <span>Kvalitetssykler</span>
+                </div>
                 <h1>Våre Sykler</h1>
-                <p>Kvalitetssykler for enhver syklist - fra nybegynner til proff</p>
+                <p>Stort utvalg av kvalitetssykler for alle behov og budsjetter</p>
             </div>
         </section>
 
         <!-- Bike Categories -->
-        <section class="bikes-section">
+        <section class="bike-categories">
             <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Sykkelkategorier</h2>
+                    <p>Vi har sykler for alle aldre og behov</p>
+                </div>
+                
+                <div class="category-filters" data-aos="fade-up">
+                    <button class="filter-btn active" @click="selectedCategory = 'all'">
+                        <i class="fas fa-th"></i> Alle
+                    </button>
+                    <button class="filter-btn" @click="selectedCategory = 'electric'">
+                        <i class="fas fa-bolt"></i> El-sykler
+                    </button>
+                    <button class="filter-btn" @click="selectedCategory = 'mountain'">
+                        <i class="fas fa-mountain"></i> Terrengsykler
+                    </button>
+                    <button class="filter-btn" @click="selectedCategory = 'city'">
+                        <i class="fas fa-city"></i> Bysykler
+                    </button>
+                    <button class="filter-btn" @click="selectedCategory = 'kids'">
+                        <i class="fas fa-child"></i> Barnesykler
+                    </button>
+                </div>
+                
                 <div class="bikes-grid">
-                    <div class="bike-category">
+                    <!-- Electric Bikes -->
+                    <div class="bike-card" data-category="electric" data-aos="fade-up" data-aos-delay="100">
                         <div class="bike-image">
-                            <img src="images/33.webp" alt="El-sykler">
+                            <img src="images/young-adult-using-electric-bike-country-side_23-2149124562.jpg" alt="El-sykkel" loading="lazy">
+                            <div class="bike-overlay">
+                                <div class="bike-badge">El-sykkel</div>
+                                <div class="bike-actions">
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <h2>El-sykler</h2>
-                        <p>Moderne el-sykler med lang rekkevidde</p>
-                        <ul class="bike-features">
-                            <li>Kraftig motor</li>
-                            <li>Lang batterilevetid</li>
-                            <li>Komfortabel kjøring</li>
-                        </ul>
-                        <span class="price">Fra kr 24.999,-</span>
-                        <a href="kontakt.html" class="cta-button">Kontakt oss</a>
+                        <div class="bike-info">
+                            <h3>EcoRide Pro</h3>
+                            <p>Moderne el-sykkel med lang rekkevidde og komfortabel kjøring</p>
+                            <div class="bike-specs">
+                                <span class="spec"><i class="fas fa-battery-full"></i> 500Wh</span>
+                                <span class="spec"><i class="fas fa-tachometer-alt"></i> 25 km/t</span>
+                                <span class="spec"><i class="fas fa-road"></i> 80 km</span>
+                            </div>
+                            <div class="bike-price">
+                                <span class="price">24 999 kr</span>
+                                <span class="original-price">29 999 kr</span>
+                            </div>
+                            <div class="bike-actions-bottom">
+                                <a href="kontakt.html" class="cta-button primary">
+                                    <i class="fas fa-shopping-cart"></i> Kjøp nå
+                                </a>
+                                <a href="#" class="cta-button secondary" onclick="showNotification('Testkjøring kommer snart!', 'info')">
+                                    <i class="fas fa-play"></i> Testkjøring
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bike-category">
+                    <div class="bike-card" data-category="electric" data-aos="fade-up" data-aos-delay="200">
                         <div class="bike-image">
-                            <img src="images/34.avif" alt="Bysykler">
+                            <img src="images/young-adult-using-electric-bike-country-side_23-2149124583.jpg" alt="El-sykkel" loading="lazy">
+                            <div class="bike-overlay">
+                                <div class="bike-badge">El-sykkel</div>
+                                <div class="bike-actions">
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <h2>Bysykler</h2>
-                        <p>Komfortable sykler for daglig bruk</p>
-                        <ul class="bike-features">
-                            <li>Lett ramme</li>
-                            <li>Praktisk bagasjebrett</li>
-                            <li>Behagelig sittestilling</li>
-                        </ul>
-                        <span class="price">Fra kr 8.999,-</span>
-                        <a href="kontakt.html" class="cta-button">Kontakt oss</a>
+                        <div class="bike-info">
+                            <h3>CityCruiser E</h3>
+                            <p>Perfekt el-sykkel for bykjøring og pendling</p>
+                            <div class="bike-specs">
+                                <span class="spec"><i class="fas fa-battery-full"></i> 400Wh</span>
+                                <span class="spec"><i class="fas fa-tachometer-alt"></i> 25 km/t</span>
+                                <span class="spec"><i class="fas fa-road"></i> 60 km</span>
+                            </div>
+                            <div class="bike-price">
+                                <span class="price">18 999 kr</span>
+                                <span class="original-price">22 999 kr</span>
+                            </div>
+                            <div class="bike-actions-bottom">
+                                <a href="kontakt.html" class="cta-button primary">
+                                    <i class="fas fa-shopping-cart"></i> Kjøp nå
+                                </a>
+                                <a href="#" class="cta-button secondary" onclick="showNotification('Testkjøring kommer snart!', 'info')">
+                                    <i class="fas fa-play"></i> Testkjøring
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bike-category">
+                    <!-- Mountain Bikes -->
+                    <div class="bike-card" data-category="mountain" data-aos="fade-up" data-aos-delay="300">
                         <div class="bike-image">
-                            <img src="images/35.jpg" alt="Terrengsykler">
+                            <img src="images/men-cycling-through-forest-extreme-sports-adventure-generated-by-ai_188544-39900.jpg" alt="Terrengsykkel" loading="lazy">
+                            <div class="bike-overlay">
+                                <div class="bike-badge">Terrengsykkel</div>
+                                <div class="bike-actions">
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <h2>Terrengsykler</h2>
-                        <p>Robuste sykler for off-road sykling</p>
-                        <ul class="bike-features">
-                            <li>Solid dempesystem</li>
-                            <li>Kraftige bremser</li>
-                            <li>Allsidig giring</li>
-                        </ul>
-                        <span class="price">Fra kr 12.999,-</span>
-                        <a href="kontakt.html" class="cta-button">Kontakt oss</a>
+                        <div class="bike-info">
+                            <h3>TrailBlazer XT</h3>
+                            <p>Robust terrengsykkel for krevende terreng og lange turer</p>
+                            <div class="bike-specs">
+                                <span class="spec"><i class="fas fa-cog"></i> 21 gir</span>
+                                <span class="spec"><i class="fas fa-weight-hanging"></i> 12.5 kg</span>
+                                <span class="spec"><i class="fas fa-ruler-vertical"></i> 29"</span>
+                            </div>
+                            <div class="bike-price">
+                                <span class="price">12 999 kr</span>
+                                <span class="original-price">15 999 kr</span>
+                            </div>
+                            <div class="bike-actions-bottom">
+                                <a href="kontakt.html" class="cta-button primary">
+                                    <i class="fas fa-shopping-cart"></i> Kjøp nå
+                                </a>
+                                <a href="#" class="cta-button secondary" onclick="showNotification('Testkjøring kommer snart!', 'info')">
+                                    <i class="fas fa-play"></i> Testkjøring
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bike-card" data-category="mountain" data-aos="fade-up" data-aos-delay="400">
+                        <div class="bike-image">
+                            <img src="images/men-women-conquer-mountain-terrain-cycling-generated-by-ai_188544-40629.jpg" alt="Terrengsykkel" loading="lazy">
+                            <div class="bike-overlay">
+                                <div class="bike-badge">Terrengsykkel</div>
+                                <div class="bike-actions">
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bike-info">
+                            <h3>MountainMaster Pro</h3>
+                            <p>Profesjonell terrengsykkel for ekstrem kjøring</p>
+                            <div class="bike-specs">
+                                <span class="spec"><i class="fas fa-cog"></i> 24 gir</span>
+                                <span class="spec"><i class="fas fa-weight-hanging"></i> 11.8 kg</span>
+                                <span class="spec"><i class="fas fa-ruler-vertical"></i> 27.5"</span>
+                            </div>
+                            <div class="bike-price">
+                                <span class="price">18 999 kr</span>
+                                <span class="original-price">24 999 kr</span>
+                            </div>
+                            <div class="bike-actions-bottom">
+                                <a href="kontakt.html" class="cta-button primary">
+                                    <i class="fas fa-shopping-cart"></i> Kjøp nå
+                                </a>
+                                <a href="#" class="cta-button secondary" onclick="showNotification('Testkjøring kommer snart!', 'info')">
+                                    <i class="fas fa-play"></i> Testkjøring
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- City Bikes -->
+                    <div class="bike-card" data-category="city" data-aos="fade-up" data-aos-delay="500">
+                        <div class="bike-image">
+                            <img src="images/full-shot-man-riding-bicycle-outdoors_23-2150884230.jpg" alt="Bysykkel" loading="lazy">
+                            <div class="bike-overlay">
+                                <div class="bike-badge">Bysykkel</div>
+                                <div class="bike-actions">
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bike-info">
+                            <h3>UrbanRider</h3>
+                            <p>Komfortabel bysykkel for daglig bruk og pendling</p>
+                            <div class="bike-specs">
+                                <span class="spec"><i class="fas fa-cog"></i> 7 gir</span>
+                                <span class="spec"><i class="fas fa-weight-hanging"></i> 14.2 kg</span>
+                                <span class="spec"><i class="fas fa-ruler-vertical"></i> 28"</span>
+                            </div>
+                            <div class="bike-price">
+                                <span class="price">8 999 kr</span>
+                                <span class="original-price">10 999 kr</span>
+                            </div>
+                            <div class="bike-actions-bottom">
+                                <a href="kontakt.html" class="cta-button primary">
+                                    <i class="fas fa-shopping-cart"></i> Kjøp nå
+                                </a>
+                                <a href="#" class="cta-button secondary" onclick="showNotification('Testkjøring kommer snart!', 'info')">
+                                    <i class="fas fa-play"></i> Testkjøring
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bike-card" data-category="city" data-aos="fade-up" data-aos-delay="600">
+                        <div class="bike-image">
+                            <img src="images/full-shot-man-riding-bike_23-2148790144.jpg" alt="Bysykkel" loading="lazy">
+                            <div class="bike-overlay">
+                                <div class="bike-badge">Bysykkel</div>
+                                <div class="bike-actions">
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bike-info">
+                            <h3>CityComfort</h3>
+                            <p>Elegant bysykkel med oppreist sittestilling</p>
+                            <div class="bike-specs">
+                                <span class="spec"><i class="fas fa-cog"></i> 8 gir</span>
+                                <span class="spec"><i class="fas fa-weight-hanging"></i> 15.5 kg</span>
+                                <span class="spec"><i class="fas fa-ruler-vertical"></i> 26"</span>
+                            </div>
+                            <div class="bike-price">
+                                <span class="price">6 999 kr</span>
+                                <span class="original-price">8 999 kr</span>
+                            </div>
+                            <div class="bike-actions-bottom">
+                                <a href="kontakt.html" class="cta-button primary">
+                                    <i class="fas fa-shopping-cart"></i> Kjøp nå
+                                </a>
+                                <a href="#" class="cta-button secondary" onclick="showNotification('Testkjøring kommer snart!', 'info')">
+                                    <i class="fas fa-play"></i> Testkjøring
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kids Bikes -->
+                    <div class="bike-card" data-category="kids" data-aos="fade-up" data-aos-delay="700">
+                        <div class="bike-image">
+                            <img src="images/cyclist-lifestyle-teen-fitness-young_1150-1016.jpg" alt="Barnesykkel" loading="lazy">
+                            <div class="bike-overlay">
+                                <div class="bike-badge">Barnesykkel</div>
+                                <div class="bike-actions">
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bike-info">
+                            <h3>JuniorRider</h3>
+                            <p>Sikker og morsom sykkel for barn 8-12 år</p>
+                            <div class="bike-specs">
+                                <span class="spec"><i class="fas fa-cog"></i> 6 gir</span>
+                                <span class="spec"><i class="fas fa-weight-hanging"></i> 9.8 kg</span>
+                                <span class="spec"><i class="fas fa-ruler-vertical"></i> 20"</span>
+                            </div>
+                            <div class="bike-price">
+                                <span class="price">3 999 kr</span>
+                                <span class="original-price">4 999 kr</span>
+                            </div>
+                            <div class="bike-actions-bottom">
+                                <a href="kontakt.html" class="cta-button primary">
+                                    <i class="fas fa-shopping-cart"></i> Kjøp nå
+                                </a>
+                                <a href="#" class="cta-button secondary" onclick="showNotification('Testkjøring kommer snart!', 'info')">
+                                    <i class="fas fa-play"></i> Testkjøring
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bike-card" data-category="kids" data-aos="fade-up" data-aos-delay="800">
+                        <div class="bike-image">
+                            <img src="images/full-shot-people-living-healthy-life_23-2151201989.jpg" alt="Barnesykkel" loading="lazy">
+                            <div class="bike-overlay">
+                                <div class="bike-badge">Barnesykkel</div>
+                                <div class="bike-actions">
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="action-btn" onclick="showNotification('Funksjon kommer snart!', 'info')">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bike-info">
+                            <h3>MiniExplorer</h3>
+                            <p>Perfekt første sykkel for barn 4-7 år</p>
+                            <div class="bike-specs">
+                                <span class="spec"><i class="fas fa-cog"></i> 1 gir</span>
+                                <span class="spec"><i class="fas fa-weight-hanging"></i> 6.2 kg</span>
+                                <span class="spec"><i class="fas fa-ruler-vertical"></i> 16"</span>
+                            </div>
+                            <div class="bike-price">
+                                <span class="price">2 499 kr</span>
+                                <span class="original-price">2 999 kr</span>
+                            </div>
+                            <div class="bike-actions-bottom">
+                                <a href="kontakt.html" class="cta-button primary">
+                                    <i class="fas fa-shopping-cart"></i> Kjøp nå
+                                </a>
+                                <a href="#" class="cta-button secondary" onclick="showNotification('Testkjøring kommer snart!', 'info')">
+                                    <i class="fas fa-play"></i> Testkjøring
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bike Features -->
+        <section class="bike-features">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Hvorfor Velge Våre Sykler</h2>
+                    <p>Vi tilbyr kun de beste syklene med høyeste kvalitet</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Garanti</h3>
+                        <p>Alle våre sykler kommer med 2 års garanti på ramme og 1 år på komponenter</p>
+                    </div>
+
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Gratis Service</h3>
+                        <p>Få gratis første service etter 3 måneder med kjøp av sykkel</p>
+                    </div>
+
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Finansiering</h3>
+                        <p>Fleksible finansieringsløsninger med 0% rente opptil 12 måneder</p>
+                    </div>
+
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Levering</h3>
+                        <p>Gratis levering innen 50 km fra Tønsberg. Montasje inkludert</p>
                     </div>
                 </div>
             </div>
@@ -129,9 +502,37 @@
         <!-- Brands Section -->
         <section class="brands-section">
             <div class="container">
-                <h2>Våre Merker</h2>
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Våre Merker</h2>
+                    <p>Vi samarbeider med ledende sykkelprodusenter</p>
+                </div>
+                
                 <div class="brands-grid">
-                    <!-- Dodaj logotypy marek rowerowych -->
+                    <div class="brand-item" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="brand-logo">
+                            <img src="images/giant.png" alt="Giant" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="brand-item" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="brand-logo">
+                            <img src="images/trek.webp" alt="Trek" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="brand-item" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="brand-logo">
+                            <img src="images/specialized.webp" alt="Specialized" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="brand-item" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="brand-logo">
+                            <img src="images/cannondale.png" alt="Cannondale" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="brand-item" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="brand-logo">
+                            <img src="images/scott1.jpg" alt="Scott" loading="lazy">
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -139,78 +540,77 @@
         <!-- CTA Section -->
         <section class="cta-section">
             <div class="container">
-                <h2>Finn din perfekte sykkel</h2>
-                <p>La oss hjelpe deg med å velge riktig sykkel for dine behov</p>
-                <a href="kontakt.html" class="cta-button">Kontakt oss</a>
+                <div class="cta-content" data-aos="zoom-in">
+                    <h2>Klar for Din Nye Sykkel?</h2>
+                    <p>Kontakt oss for rådgivning og testkjøring</p>
+                    <div class="cta-buttons">
+                        <a href="kontakt.html" class="cta-button primary">
+                            <i class="fas fa-phone"></i> Kontakt oss
+                        </a>
+                        <a href="utleie.html" class="cta-button secondary">
+                            <i class="fas fa-key"></i> Se utleie
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer (taki sam jak w innych podstronach) -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-info">
-                    <div class="logo">
-                        <a href="index.html" class="logo-link">
-                            <span class="logo-icon">
-                                <i class="fas fa-bicycle"></i>
-                            </span>
-                            <div class="logo-text">
-                                <div class="logo-main">
-                                    <span class="logo-city">Tønsberg</span>
-                                    <span class="logo-divider">|</span>
-                                    <span class="logo-service">Sykkelservice</span>
-                                </div>
-                                <div class="logo-tagline">
-                                    <span class="tagline-text">Salg</span>
-                                    <span class="tagline-dot">•</span>
-                                    <span class="tagline-text">Utleie</span>
-                                    <span class="tagline-company">AS</span>
-                                </div>
-                            </div>
-                        </a>
+                    <h4><i class="fas fa-bicycle"></i> Tønsberg Sykkelservice AS</h4>
+                    <p>Din pålitelige partner for sykkelservice, salg og utleie i Tønsberg siden 1995.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     </div>
-                    <p>Din lokale sykkelekspert i Tønsberg</p>
                 </div>
-
+                
                 <div class="footer-contact">
-                    <h4>Kontakt oss</h4>
+                    <h4><i class="fas fa-map-marker-alt"></i> Kontakt</h4>
                     <ul>
-                        <li><a href="tel:+4733333333">+47 333 33 333</a></li>
-                        <li><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></li>
-                        <li>Storgata 123, 3110 Tønsberg</li>
+                        <li><a href="tel:+4712345678"><i class="fas fa-phone"></i> +47 12 34 56 78</a></li>
+                        <li><a href="mailto:info@tonsbergsykkel.no"><i class="fas fa-envelope"></i> info@tonsbergsykkel.no</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Sykkelgata 1, 3111 Tønsberg</li>
                     </ul>
                 </div>
-
+                
+                <div class="footer-services">
+                    <h4><i class="fas fa-tools"></i> Tjenester</h4>
+                    <ul>
+                        <li><a href="tjenester.html">Service og reparasjon</a></li>
+                        <li><a href="sykler.html">Sykkelsalg</a></li>
+                        <li><a href="utleie.html">Sykkelutleie</a></li>
+                        <li><a href="om-oss.html">Om oss</a></li>
+                    </ul>
+                </div>
+                
                 <div class="footer-hours">
-                    <h4>Åpningstider</h4>
+                    <h4><i class="fas fa-clock"></i> Åpningstider</h4>
                     <ul>
-                        <li>Man-Fre: 09:00 - 17:00</li>
-                        <li>Lørdag: 10:00 - 15:00</li>
-                        <li>Søndag: Stengt</li>
+                        <li><span>Mandag-Fredag:</span> 09:00 - 17:00</li>
+                        <li><span>Lørdag:</span> 10:00 - 15:00</li>
+                        <li><span>Søndag:</span> Stengt</li>
                     </ul>
-                </div>
-
-                <div class="footer-social">
-                    <h4>Følg oss</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    </div>
                 </div>
             </div>
-
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 Tønsberg Sykkelservice og Utleie AS. Alle rettigheter forbeholdt.</p>
-                <nav class="footer-nav">
-                    <a href="personvern.html">Personvern</a>
-                    <a href="cookies.html">Cookies</a>
-                </nav>
+                <p>&copy; 2024 Tønsberg Sykkelservice AS. Alle rettigheter forbeholdt.</p>
+                <div class="footer-nav">
+                    <a href="#">Personvern</a>
+                    <a href="#">Vilkår</a>
+                    <a href="#">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js" type="module"></script>
 </body>
 </html>

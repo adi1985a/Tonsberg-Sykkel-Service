@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Profesjonell sykkelservice i Tønsberg. Vi tilbyr reparasjon, vedlikehold og oppgradering av alle sykkeltyper.">
+    <meta name="description" content="Profesjonelle sykkeltjenester i reparasjoner i Tønsberg. Vi tilbyr service, vedlikehold og reparasjon av alle sykkeltyper med garanti.">
     <title>Tjenester - Tønsberg Sykkelservice og Utleie AS</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -21,117 +24,388 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body x-data="{ mobileMenuOpen: false }">
-    <!-- Header (taki sam jak w innych podstronach) -->
-    <header class="header">
-        <nav class="nav-main">
-            <div class="container">
-                <div class="logo">
-                    <a href="index.html" class="logo-link">
-                        <span class="logo-icon">
-                            <i class="fas fa-bicycle"></i>
-                        </span>
-                        <div class="logo-text">
-                            <div class="logo-main">
-                                <span class="logo-city">Tønsberg</span>
-                                <span class="logo-divider">|</span>
-                                <span class="logo-service">Sykkelservice</span>
-                            </div>
-                            <div class="logo-tagline">
-                                <span class="tagline-text">Salg</span>
-                                <span class="tagline-dot">•</span>
-                                <span class="tagline-text">Utleie</span>
-                                <span class="tagline-company">AS</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <button class="mobile-menu-toggle" 
-                        @click="mobileMenuOpen = !mobileMenuOpen"
-                        :aria-expanded="mobileMenuOpen">
-                    <span class="sr-only">Meny</span>
-                    <span class="hamburger"></span>
-                </button>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner">
+            <i class="fas fa-bicycle fa-spin"></i>
+        </div>
+    </div>
 
-                <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
-                    <li><a href="index.html">Hjem</a></li>
-                    <li><a href="om-oss.html">Om oss</a></li>
-                    <li><a href="tjenester.html">Tjenester</a></li>
-                    <li><a href="sykler.html">Sykler</a></li>
-                    <li><a href="utleie.html">Utleie</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                </ul>
-            </div>
-        </nav>
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <header class="header" x-data="{ isScrolled: false }" 
+            x-init="window.addEventListener('scroll', () => isScrolled = window.pageYOffset > 50)"
+            :class="{ 'scrolled': isScrolled }">
+        <div class="header-logo">
+            <a href="index.html" class="logo-text-simple">
+                <div class="logo-icon">
+                    <img src="images/bicycle.png" alt="Logo" style="width:100%;height:100%;object-fit:contain;display:block;">
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">Tønsberg Sykkelservice AS</span>
+                    <span class="logo-sub">Salg, utleie, service</span>
+                </div>
+            </a>
+        </div>
+        <div class="nav-container">
+            <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Hjem</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="om-oss.html" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Om oss</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="tjenester.html" class="nav-link active">
+                        <i class="fas fa-tools"></i>
+                        <span>Tjenester</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="sykler.html" class="nav-link">
+                        <i class="fas fa-bicycle"></i>
+                        <span>Sykler</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="utleie.html" class="nav-link">
+                        <i class="fas fa-key"></i>
+                        <span>Utleie</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="kontakt.html" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Kontakt</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <button class="mobile-menu-toggle" 
+                @click="mobileMenuOpen = !mobileMenuOpen"
+                :aria-expanded="mobileMenuOpen">
+            <span class="sr-only">Meny</span>
+            <span class="hamburger"></span>
+        </button>
     </header>
+    <div class="menu-bar-below"></div>
 
     <main>
         <!-- Page Hero -->
-        <section class="page-hero">
-            <div class="container">
+        <section class="hero page-hero">
+            <div class="hero-background">
+                <img src="images/mechanic-repairing-bicycle_1170-2542.jpg" alt="Sykkeltjenester" class="hero-image">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="hero-badge">
+                    <i class="fas fa-tools"></i>
+                    <span>Profesjonell service</span>
+                </div>
                 <h1>Våre Tjenester</h1>
-                <p>Profesjonell sykkelservice og reparasjon i Tønsberg</p>
+                <p>Komplette sykkeltjenester med høyeste kvalitet og garanti</p>
             </div>
         </section>
 
-        <!-- Service Categories -->
-        <section class="services-detailed">
+        <!-- Services Overview -->
+        <section class="services-overview">
             <div class="container">
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-image">
-                            <img src="images/43.jpg" alt="Sykkelservice">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Komplette Sykkeltjenester</h2>
+                    <p>Vi tilbyr alt du trenger for å holde sykkelen din i perfekt stand</p>
+                </div>
+                
+                <div class="services-categories">
+                    <div class="service-category" data-aos="fade-up" data-aos-delay="100">
+                        <div class="category-icon">
+                            <i class="fas fa-wrench"></i>
                         </div>
-                        <div class="service-content">
-                            <h3>Sykkelservice</h3>
-                            <p>Profesjonell service og reparasjon av alle sykkeltyper</p>
-                            <ul class="service-features">
-                                <li>Komplett sykkelservice</li>
-                                <li>Reparasjon og vedlikehold</li>
-                                <li>Oppgradering av komponenter</li>
-                                <li>Hjuljustering og dekkskift</li>
-                                <li>Bremsejustering</li>
-                                <li>Girjustering</li>
-                            </ul>
-                            <a href="kontakt.html" class="cta-button">Bestill service</a>
+                        <h3>Service og Vedlikehold</h3>
+                        <p>Regelmessig service for å holde sykkelen din i toppform</p>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Komplett service</li>
+                            <li><i class="fas fa-check"></i> Bremseservice</li>
+                            <li><i class="fas fa-check"></i> Girkassejustering</li>
+                            <li><i class="fas fa-check"></i> Dekkbytte</li>
+                        </ul>
+                        <div class="service-price">
+                            <span class="price">Fra 299 kr</span>
+                            <span class="duration">1-2 timer</span>
+                        </div>
+                        <a href="#booking" class="service-cta">
+                            <i class="fas fa-calendar-check"></i> Book service
+                        </a>
+                    </div>
+
+                    <div class="service-category" data-aos="fade-up" data-aos-delay="200">
+                        <div class="category-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>El-sykkel Service</h3>
+                        <p>Spesialkompetanse på elektriske sykler og batterier</p>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Batteridiagnostikk</li>
+                            <li><i class="fas fa-check"></i> Motoroverhaling</li>
+                            <li><i class="fas fa-check"></i> Elektronikkreparasjon</li>
+                            <li><i class="fas fa-check"></i> Ladesystem</li>
+                        </ul>
+                        <div class="service-price">
+                            <span class="price">Fra 399 kr</span>
+                            <span class="duration">2-4 timer</span>
+                        </div>
+                        <a href="#booking" class="service-cta">
+                            <i class="fas fa-calendar-check"></i> Book service
+                        </a>
+                    </div>
+
+                    <div class="service-category" data-aos="fade-up" data-aos-delay="300">
+                        <div class="category-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <h3>Reparasjoner</h3>
+                        <p>Rask og pålitelig reparasjon av alle sykkeltyper</p>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Akutte reparasjoner</li>
+                            <li><i class="fas fa-check"></i> Delerbytte</li>
+                            <li><i class="fas fa-check"></i> Sveisearbeid</li>
+                            <li><i class="fas fa-check"></i> Rammeoverhaling</li>
+                        </ul>
+                        <div class="service-price">
+                            <span class="price">Fra 199 kr</span>
+                            <span class="duration">30 min - 1 dag</span>
+                        </div>
+                        <a href="#booking" class="service-cta">
+                            <i class="fas fa-calendar-check"></i> Book service
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Process -->
+        <section class="service-process">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Vår Serviceprosess</h2>
+                    <p>Enkel og transparent prosess fra start til slutt</p>
+                </div>
+                
+                <div class="process-steps">
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Kontakt</h3>
+                        <p>Ring eller kom innom for å beskrive problemet</p>
+                    </div>
+
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Diagnose</h3>
+                        <p>Vi undersøker sykkelen og gir deg et pristilbud</p>
+                    </div>
+
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Reparasjon</h3>
+                        <p>Vi utfører arbeidet med høyeste kvalitet</p>
+                    </div>
+
+                    <div class="process-step" data-aos="fade-up" data-aos-delay="400">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Kvalitetskontroll</h3>
+                        <p>Vi tester sykkelen før den leveres tilbake</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Services -->
+        <section class="detailed-services">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Detaljerte Tjenester</h2>
+                    <p>Se vårt komplette utvalg av sykkeltjenester</p>
+                </div>
+                
+                <div class="services-detailed-grid">
+                    <div class="service-detail-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-detail-header">
+                            <div class="service-detail-icon">
+                                <i class="fas fa-oil-can"></i>
+                            </div>
+                            <h3>Komplett Service</h3>
+                        </div>
+                        <p>Fullstendig service av hele sykkelen inkludert rengjøring, smøring og justering av alle komponenter.</p>
+                        <ul class="service-detail-features">
+                            <li><i class="fas fa-check"></i> Rengjøring av hele sykkelen</li>
+                            <li><i class="fas fa-check"></i> Smøring av kjede og gir</li>
+                            <li><i class="fas fa-check"></i> Justering av bremser</li>
+                            <li><i class="fas fa-check"></i> Kontroll av alle komponenter</li>
+                            <li><i class="fas fa-check"></i> Dekk- og slangekontroll</li>
+                        </ul>
+                        <div class="service-detail-price">
+                            <span class="price">599 kr</span>
+                            <span class="duration">2-3 timer</span>
                         </div>
                     </div>
 
-                    <!-- Pozostałe karty bez zmian -->
-                    <div class="service-card">
-                        <div class="service-image">
-                            <img src="images/55.jpg" alt="Sykkelutleie">
+                    <div class="service-detail-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-detail-header">
+                            <div class="service-detail-icon">
+                                <i class="fas fa-hand-holding-usd"></i>
+                            </div>
+                            <h3>Mini Service</h3>
                         </div>
-                        <div class="service-content">
-                            <h3>Sykkelutleie</h3>
-                            <p>Fleksible utleieløsninger for alle behov</p>
-                            <ul class="service-features">
-                                <li>Daglig utleie</li>
-                                <li>Helgeutleie</li>
-                                <li>Langtidsutleie</li>
-                                <li>El-sykler tilgjengelig</li>
-                                <li>Beskyttelsesutstyr inkludert</li>
-                            </ul>
-                            <a href="utleie.html" class="cta-button">Se utleiepriser</a>
+                        <p>Rask service for sykler som bare trenger grunnleggende vedlikehold og justering.</p>
+                        <ul class="service-detail-features">
+                            <li><i class="fas fa-check"></i> Kjedesmøring</li>
+                            <li><i class="fas fa-check"></i> Bremsjustering</li>
+                            <li><i class="fas fa-check"></i> Dekk- og slangekontroll</li>
+                            <li><i class="fas fa-check"></i> Generell inspeksjon</li>
+                        </ul>
+                        <div class="service-detail-price">
+                            <span class="price">299 kr</span>
+                            <span class="duration">1 time</span>
                         </div>
                     </div>
 
-                    <div class="service-card">
-                        <div class="service-image">
-                            <img src="images/65.jpg" alt="Sykkelsalg">
+                    <div class="service-detail-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-detail-header">
+                            <div class="service-detail-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h3>Akutt Reparasjon</h3>
                         </div>
-                        <div class="service-content">
-                            <h3>Sykkelsalg</h3>
-                            <p>Stort utvalg av kvalitetssykler</p>
-                            <ul class="service-features">
-                                <li>El-sykler</li>
-                                <li>Terrengsykler</li>
-                                <li>Bysykler</li>
-                                <li>Barnesykler</li>
-                                <li>Tilbehør og deler</li>
-                            </ul>
-                            <a href="sykler.html" class="cta-button">Se vårt utvalg</a>
+                        <p>Rask hjelp når du trenger det mest. Vi prioriterer akutte reparasjoner.</p>
+                        <ul class="service-detail-features">
+                            <li><i class="fas fa-check"></i> Dekkbytte</li>
+                            <li><i class="fas fa-check"></i> Kjede- og girreparasjon</li>
+                            <li><i class="fas fa-check"></i> Bremsereparasjon</li>
+                            <li><i class="fas fa-check"></i> Rask diagnose</li>
+                        </ul>
+                        <div class="service-detail-price">
+                            <span class="price">Fra 199 kr</span>
+                            <span class="duration">30 min - 2 timer</span>
                         </div>
+                    </div>
+
+                    <div class="service-detail-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-detail-header">
+                            <div class="service-detail-icon">
+                                <i class="fas fa-battery-full"></i>
+                            </div>
+                            <h3>El-sykkel Service</h3>
+                        </div>
+                        <p>Spesialkompetanse på elektriske sykler, batterier og motorer.</p>
+                        <ul class="service-detail-features">
+                            <li><i class="fas fa-check"></i> Batteridiagnostikk</li>
+                            <li><i class="fas fa-check"></i> Motoroverhaling</li>
+                            <li><i class="fas fa-check"></i> Elektronikkreparasjon</li>
+                            <li><i class="fas fa-check"></i> Ladesystem</li>
+                            <li><i class="fas fa-check"></i> Firmware-oppdateringer</li>
+                        </ul>
+                        <div class="service-detail-price">
+                            <span class="price">Fra 399 kr</span>
+                            <span class="duration">2-4 timer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="why-choose-us">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Hvorfor Velge Oss</h2>
+                    <p>Vi skiller oss ut med kvalitet, erfaring og kundeservice</p>
+                </div>
+                
+                <div class="reasons-grid">
+                    <div class="reason-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="reason-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Rask Service</h3>
+                        <p>De fleste reparasjoner gjøres samme dag. Vi forstår at du trenger sykkelen din tilbake raskt.</p>
+                    </div>
+
+                    <div class="reason-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="reason-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Garanti</h3>
+                        <p>Alle våre tjenester kommer med 6 måneders garanti på arbeid og 12 måneder på deler.</p>
+                    </div>
+
+                    <div class="reason-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="reason-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Ekspertise</h3>
+                        <p>25 års erfaring med alle sykkeltyper. Vi holder oss oppdatert på nyeste teknologier.</p>
+                    </div>
+
+                    <div class="reason-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="reason-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Kundeservice</h3>
+                        <p>Vi tar oss tid til å forklare hva som må gjøres og hvorfor. Din tilfredshet er vår prioritet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section class="booking-section" id="booking">
+            <div class="container">
+                <div class="booking-content" data-aos="zoom-in">
+                    <h2>Book Service Nå</h2>
+                    <p>Kontakt oss for å avtale tid for service eller reparasjon</p>
+                    <div class="booking-options">
+                        <a href="tel:+4733333333" class="booking-option">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h3>Ring oss</h3>
+                                <p>+47 333 33 333</p>
+                            </div>
+                        </a>
+                        <a href="kontakt.html" class="booking-option">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Send e-post</h3>
+                                <p>post@tonsberg-sykkel.no</p>
+                            </div>
+                        </a>
+                        <a href="#" class="booking-option" onclick="showNotification('Online booking kommer snart!', 'info')">
+                            <i class="fas fa-calendar-check"></i>
+                            <div>
+                                <h3>Book online</h3>
+                                <p>Kommer snart</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -140,78 +414,77 @@
         <!-- CTA Section -->
         <section class="cta-section">
             <div class="container">
-                <h2>Trenger du hjelp med sykkelen?</h2>
-                <p>Ta kontakt for en uforpliktende prat om våre tjenester</p>
-                <a href="kontakt.html" class="cta-button">Kontakt Oss</a>
+                <div class="cta-content" data-aos="zoom-in">
+                    <h2>Klar for Service?</h2>
+                    <p>Ta kontakt med oss i dag for profesjonell hjelp med din sykkel</p>
+                    <div class="cta-buttons">
+                        <a href="kontakt.html" class="cta-button primary">
+                            <i class="fas fa-phone"></i> Kontakt oss
+                        </a>
+                        <a href="om-oss.html" class="cta-button secondary">
+                            <i class="fas fa-info-circle"></i> Les mer om oss
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer (taki sam jak w innych podstronach) -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-info">
-                    <div class="logo">
-                        <a href="index.html" class="logo-link">
-                            <span class="logo-icon">
-                                <i class="fas fa-bicycle"></i>
-                            </span>
-                            <div class="logo-text">
-                                <div class="logo-main">
-                                    <span class="logo-city">Tønsberg</span>
-                                    <span class="logo-divider">|</span>
-                                    <span class="logo-service">Sykkelservice</span>
-                                </div>
-                                <div class="logo-tagline">
-                                    <span class="tagline-text">Salg</span>
-                                    <span class="tagline-dot">•</span>
-                                    <span class="tagline-text">Utleie</span>
-                                    <span class="tagline-company">AS</span>
-                                </div>
-                            </div>
-                        </a>
+                    <h4><i class="fas fa-bicycle"></i> Tønsberg Sykkelservice AS</h4>
+                    <p>Din pålitelige partner for sykkelservice, salg og utleie i Tønsberg siden 1995.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     </div>
-                    <p>Din lokale sykkelekspert i Tønsberg</p>
                 </div>
-
+                
                 <div class="footer-contact">
-                    <h4>Kontakt oss</h4>
+                    <h4><i class="fas fa-map-marker-alt"></i> Kontakt</h4>
                     <ul>
-                        <li><a href="tel:+4733333333">+47 333 33 333</a></li>
-                        <li><a href="mailto:post@tonsberg-sykkel.no">post@tonsberg-sykkel.no</a></li>
-                        <li>Storgata 123, 3110 Tønsberg</li>
+                        <li><a href="tel:+4712345678"><i class="fas fa-phone"></i> +47 12 34 56 78</a></li>
+                        <li><a href="mailto:info@tonsbergsykkel.no"><i class="fas fa-envelope"></i> info@tonsbergsykkel.no</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Sykkelgata 1, 3111 Tønsberg</li>
                     </ul>
                 </div>
-
+                
+                <div class="footer-services">
+                    <h4><i class="fas fa-tools"></i> Tjenester</h4>
+                    <ul>
+                        <li><a href="tjenester.html">Service og reparasjon</a></li>
+                        <li><a href="sykler.html">Sykkelsalg</a></li>
+                        <li><a href="utleie.html">Sykkelutleie</a></li>
+                        <li><a href="om-oss.html">Om oss</a></li>
+                    </ul>
+                </div>
+                
                 <div class="footer-hours">
-                    <h4>Åpningstider</h4>
+                    <h4><i class="fas fa-clock"></i> Åpningstider</h4>
                     <ul>
-                        <li>Man-Fre: 09:00 - 17:00</li>
-                        <li>Lørdag: 10:00 - 15:00</li>
-                        <li>Søndag: Stengt</li>
+                        <li><span>Mandag-Fredag:</span> 09:00 - 17:00</li>
+                        <li><span>Lørdag:</span> 10:00 - 15:00</li>
+                        <li><span>Søndag:</span> Stengt</li>
                     </ul>
-                </div>
-
-                <div class="footer-social">
-                    <h4>Følg oss</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    </div>
                 </div>
             </div>
-
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 Tønsberg Sykkelservice og Utleie AS. Alle rettigheter forbeholdt.</p>
-                <nav class="footer-nav">
-                    <a href="personvern.html">Personvern</a>
-                    <a href="cookies.html">Cookies</a>
-                </nav>
+                <p>&copy; 2024 Tønsberg Sykkelservice AS. Alle rettigheter forbeholdt.</p>
+                <div class="footer-nav">
+                    <a href="#">Personvern</a>
+                    <a href="#">Vilkår</a>
+                    <a href="#">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js" type="module"></script>
 </body>
 </html>
